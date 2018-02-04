@@ -41,9 +41,6 @@
     <ClCompile Include="20171008-Metadata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20171007-FtpFetch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="20171014-WxMeta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,6 +78,63 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="20171109-CodeGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20171111-luogu1309.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20171111-luogu1093.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20171111-luogu1019.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20171113-luogu3959.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20171210-NetworkStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180106-luogu3366.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180106-luogu3367.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180106-luogu3371.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180106-luogu3383.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180106-luogu3370.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180107-luogu3372.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180116-NetworkSoundStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180117-pi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180202-heapsort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180202-luogu3378.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180203-luogu1434.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180203-luogu1803.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180204-luogu3372.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,14 +1,14 @@
 /*
 DOCUMENT CODE ".cpp"
-CREATION DATE 2017-
-SIGNATURE CODE_2017
+CREATION DATE 2018-
+SIGNATURE CODE_2018
 TOPIC
 */
 
 #include "Overall.hpp"
 
 //Check if this code file is enabled for testing.
-#ifdef CODE_2017
+#ifdef CODE_2018
 
 #include <cstdlib>
 #include <iostream>

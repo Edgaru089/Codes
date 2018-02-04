@@ -153,11 +153,35 @@ const sf::String Gb18030ToUnicode(const string str) {
 
 void setWindowsTheme(Desktop&);
 
+sf::Font msyh;
+
+const float getHighDpiScaleFactor(sf::RenderWindow& win = sf::RenderWindow()) {
+	UINT dpi = 96;
+	DPI_AWARENESS dpiAwareness = GetAwarenessFromDpiAwarenessContext(GetThreadDpiAwarenessContext());
+	switch (dpiAwareness) {
+		// Scale the window to the system DPI
+	case DPI_AWARENESS_SYSTEM_AWARE:
+		dpi = GetDpiForSystem();
+		break;
+
+		// Scale the window to the monitor DPI
+	case DPI_AWARENESS_PER_MONITOR_AWARE:
+		dpi = GetDpiForWindow(win.getSystemHandle());
+		break;
+	}
+
+	return dpi / 96.0f;
+}
+
 int main(int argc, char* argv[]) {
 
 	SFGUI sfgui;
 
 	Desktop desktop;
+
+	desktop.SetProperty("*", "FontSize", 12/* * getHighDpiScaleFactor()*/);
+	//msyh.loadFromFile(getenv("windir") + string("\\Fonts\\msyh.ttc"));
+	//desktop.GetEngine().GetResourceManager().SetDefaultFont(make_shared<sf::Font>(msyh));
 
 	//setWindowsTheme(desktop);
 
@@ -196,7 +220,7 @@ int main(int argc, char* argv[]) {
 		updateSignature();
 
 		codeLabel->SetText(Gb18030ToUnicode(StringParser::replaceSubString(code, vector<StringPair>({
-			StringPair("%filename%",fileCodeEntry->GetText()),
+			StringPair("%filename%",filenameEntry->GetText()),
 			StringPair("%filecode-uppercase%",toUpperCase(fileCodeEntry->GetText().toAnsiString())),
 			StringPair("%date%",StringParser::generateFormattedString("%04d%02d%02d",dateYear, dateMonth, dateDay)),
 			StringPair("%date-brakes%",StringParser::generateFormattedString("%04d-%02d-%02d",dateYear, dateMonth, dateDay)),
@@ -244,6 +268,9 @@ int main(int argc, char* argv[]) {
 		sf::Clipboard::setString(signatureEntry->GetText());
 	});
 
+	buttonTable->SetColumnSpacings(2.0f);
+	buttonTable->SetRowSpacings(5.0f);
+
 	mainTable->Attach(buttonTable, UintRect(0, 7, 8, 1), Table::FILL, Table::EXPAND | Table::FILL, sf::Vector2f(8.0f, 8.0f));
 
 	mainWin->Add(mainTable);
@@ -259,6 +286,8 @@ int main(int argc, char* argv[]) {
 	win.setVerticalSyncEnabled(true);
 	win.clear(sf::Color(240, 240, 240));
 	win.display();
+
+	desktop.Update(1.0f);
 
 	sf::Event event;
 	sf::Clock logicClock;
