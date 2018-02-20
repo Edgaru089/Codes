@@ -137,5 +137,14 @@
     <ClCompile Include="20180204-luogu3372.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="20180204-marcool0622.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180204-NetworkSoundClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180220-Chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -109,7 +109,7 @@ void listen(Uint16 port, SoundBuffer& buffer, bool& stop, mutex& lock) {
 		while (!stop&&listener.accept(*socket) != Socket::Done)
 			sleep(milliseconds(50));
 		thread([&](shared_ptr<TcpSocket> socket, const SoundBuffer* buffer) {
-			cout << "Connected" << endl;
+			cout << endl << "Connected" << endl;
 			Packet packet;
 			packet << (Uint64)buffer->getSampleCount() << (Uint32)buffer->getChannelCount() << (Uint32)buffer->getSampleRate();
 
@@ -190,7 +190,7 @@ int main(int argc, char* argv[]) {
 			_size = size;
 			lock.unlock();
 			cout << "\r    [ " << string(60 * _prog, '=') << string(60 - 60 * _prog, ' ') << " ] " <<
-				_size*_prog << "/" << _size << " samples, " << (int)(_prog * 100) << "%";
+				(int)(_size*_prog) << "/" << _size << " samples, " << (int)(_prog * 100) << "%";
 			if (_done)
 				break;
 		}
