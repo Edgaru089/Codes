@@ -181,6 +181,7 @@
     <ClCompile Include="20180204-marcool0622.cpp" />
     <ClCompile Include="20180204-NetworkSoundClient.cpp" />
     <ClCompile Include="20180220-Chess.cpp" />
+    <ClCompile Include="20180316-PiGraphics.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="Sandbox.cpp" />
