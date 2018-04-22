@@ -179,7 +179,7 @@ int main(int argc, char* argv[]) {
 
 	Desktop desktop;
 
-	desktop.SetProperty("*", "FontSize", 12/* * getHighDpiScaleFactor()*/);
+	desktop.SetProperty("*", "FontSize", 12 * getHighDpiScaleFactor());
 	//msyh.loadFromFile(getenv("windir") + string("\\Fonts\\msyh.ttc"));
 	//desktop.GetEngine().GetResourceManager().SetDefaultFont(make_shared<sf::Font>(msyh));
 

@@ -26,91 +26,10 @@
     <ClCompile Include="Sandbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20170823-ClipboardSync.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20170903-NetworkInputStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20170903-NetworkInputStreamServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20170907-SegmentTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171008-Metadata.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171014-WxMeta.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171014-luogu2296.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171014-luogu1351.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171017-luogu1903.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171023-luogu1504.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171109-luogu1003.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171109-luogu1017.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171109-luogu1067.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="20171109-CodeSubmit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20171109-luogu1031.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171109-luogu1042.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171109-luogu1098.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="20171109-CodeGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171111-luogu1309.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171111-luogu1093.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171111-luogu1019.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171113-luogu3959.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20171210-NetworkStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180106-luogu3366.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180106-luogu3367.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180106-luogu3371.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180106-luogu3383.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180106-luogu3370.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180107-luogu3372.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Config.cpp">
@@ -122,31 +41,22 @@
     <ClCompile Include="20180117-pi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20180202-heapsort.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180202-luogu3378.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180203-luogu1434.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180203-luogu1803.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180204-luogu3372.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180204-marcool0622.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="20180204-NetworkSoundClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20180220-Chess.cpp">
+    <ClCompile Include="20180316-PiGraphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20180316-PiGraphics.cpp">
+    <ClCompile Include="20180421-luogu1498.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180421-luogu1908.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180422-luogu1010.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180422-luogu3372.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
