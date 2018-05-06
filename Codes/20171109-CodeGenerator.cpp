@@ -179,7 +179,7 @@ int main(int argc, char* argv[]) {
 
 	Desktop desktop;
 
-	desktop.SetProperty("*", "FontSize", 12 * getHighDpiScaleFactor());
+	desktop.SetProperty("*", "FontSize", 12/* * getHighDpiScaleFactor()*/);
 	//msyh.loadFromFile(getenv("windir") + string("\\Fonts\\msyh.ttc"));
 	//desktop.GetEngine().GetResourceManager().SetDefaultFont(make_shared<sf::Font>(msyh));
 
@@ -303,8 +303,9 @@ int main(int argc, char* argv[]) {
 		while (win.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				win.close();
-			else
-				desktop.HandleEvent(event);
+			else if (event.type == sf::Event::KeyPressed&&event.key.code == sf::Keyboard::Escape)
+				win.close();
+			desktop.HandleEvent(event);
 		}
 	}
 

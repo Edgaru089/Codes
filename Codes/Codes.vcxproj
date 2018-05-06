@@ -71,10 +71,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\wxWidgets-3.0.3\include\msvc\wx;C:\wxWidgets-3.0.3\include;C:\SFGUI-Latest-VS2017-SFML-Latest\include;C:\SFML-Latest-VS2015\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\wxWidgets-3.0.3\lib\vc_lib;C:\SFGUI-Latest-VS2017-SFML-Latest\lib;C:\SFML-Latest-VS2015\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>C:\wxWidgets-3.0.3\include\msvc\wx;C:\wxWidgets-3.0.3\include;C:\SFGUI-Latest-VS2017-SFML-Latest\include;C:\SFML-Latest-VS2015\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\wxWidgets-3.0.3\lib\vc_lib;C:\SFGUI-Latest-VS2017-SFML-Latest\lib;C:\SFML-Latest-VS2015\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,12 +86,15 @@
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MinimalRebuild>false</MinimalRebuild>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;sfgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <OptimizeReferences>
+      </OptimizeReferences>
     </Link>
     <Manifest>
       <EnableDpiAwareness>true</EnableDpiAwareness>
@@ -112,20 +117,22 @@
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
+      <OptimizeReferences>
+      </OptimizeReferences>
       <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;sfgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
     <Manifest>
-      <EnableDpiAwareness>true</EnableDpiAwareness>
+      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +161,31 @@
     <ClCompile Include="20180421-luogu1908.cpp" />
     <ClCompile Include="20180422-luogu1010.cpp" />
     <ClCompile Include="20180422-luogu3372.cpp" />
+    <ClCompile Include="20180429-luogu1303.cpp" />
+    <ClCompile Include="20180429-luogu1601.cpp" />
+    <ClCompile Include="20180429-luogu2142.cpp" />
+    <ClCompile Include="20180430-luogu1030.cpp" />
+    <ClCompile Include="20180430-luogu1060.cpp" />
+    <ClCompile Include="20180430-luogu1087.cpp" />
+    <ClCompile Include="20180430-luogu1111.cpp" />
+    <ClCompile Include="20180430-luogu1115.cpp" />
+    <ClCompile Include="20180430-luogu1164.cpp" />
+    <ClCompile Include="20180430-luogu1305.cpp" />
+    <ClCompile Include="20180430-luogu1449.cpp" />
+    <ClCompile Include="20180430-luogu1739.cpp" />
+    <ClCompile Include="20180430-luogu1996.cpp" />
+    <ClCompile Include="20180504-luogu1005.cpp" />
+    <ClCompile Include="20180504-luogu1048.cpp" />
+    <ClCompile Include="20180504-luogu1303.cpp" />
+    <ClCompile Include="20180504-luogu1601.cpp" />
+    <ClCompile Include="20180504-luogu2142.cpp" />
+    <ClCompile Include="20180504-luogu3368.cpp" />
+    <ClCompile Include="20180504-luogu3374.cpp" />
+    <ClCompile Include="20180505-luogu1339.cpp" />
+    <ClCompile Include="20180505-luogu3373.cpp" />
+    <ClCompile Include="20180506-luogu1546.cpp" />
+    <ClCompile Include="20180506-luogu1991.cpp" />
+    <ClCompile Include="20180506-luogu2330.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="Sandbox.cpp" />
