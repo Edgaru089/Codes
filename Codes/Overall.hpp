@@ -9,7 +9,7 @@
 #define wxUSE_ANY 1
 
 ///////////////////////// Define currently tested code file /////////////////////////
-#define CODE_20180506_LUOGU1991
+#define CODE_20180509_IMGUI
 
 
 // Inform the Nvidia/AMD driver that this SFML application could

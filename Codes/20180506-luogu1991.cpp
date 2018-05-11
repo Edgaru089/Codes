@@ -14,6 +14,8 @@ TOPIC
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 struct Edge {
@@ -73,7 +75,22 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	double sum = 0;
+	int count = n;
 
+	sort(e + 1, e + n + 1, compare);
+
+	for (int i = 1; i <= k; i++) {
+		if (Find(e[i].u) != Find(e[i].v)) {
+			Union(e[i].u, e[i].v);
+			count--;
+			sum += e[i].len;
+			if (count <= s)
+				break;
+		}
+	}
+
+	cout << sum << endl;
 
 	return 0;
 }
