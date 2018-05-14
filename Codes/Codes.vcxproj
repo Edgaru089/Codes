@@ -69,13 +69,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\wxWidgets-3.0.3\include\msvc\wx;C:\wxWidgets-3.0.3\include;C:\SFGUI-Latest-VS2017-SFML-Latest\include;C:\SFML-Latest-VS2015\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\wxWidgets-3.0.3\lib\vc_lib;C:\SFGUI-Latest-VS2017-SFML-Latest\lib;C:\SFML-Latest-VS2015\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFGUI-0.3.2-VS2017\include;C:\SFML-2.5.0-VS2017\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFGUI-0.3.2-VS2017\lib;C:\SFML-2.5.0-VS2017\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\wxWidgets-3.0.3\include\msvc\wx;C:\wxWidgets-3.0.3\include;C:\SFGUI-Latest-VS2017-SFML-Latest\include;C:\SFML-Latest-VS2015\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\wxWidgets-3.0.3\lib\vc_lib;C:\SFGUI-Latest-VS2017-SFML-Latest\lib;C:\SFML-Latest-VS2015\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFGUI-0.3.2-VS2017\include;C:\SFML-2.5.0-VS2017\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFGUI-0.3.2-VS2017\lib;C:\SFML-2.5.0-VS2017\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -197,6 +197,15 @@
     <ClCompile Include="20180506-luogu2330.cpp" />
     <ClCompile Include="20180508-luogu3375.cpp" />
     <ClCompile Include="20180509-imgui.cpp" />
+    <ClCompile Include="20180511-luogu1346.cpp" />
+    <ClCompile Include="20180512-bnds0110.cpp" />
+    <ClCompile Include="20180512-bnds0111.cpp" />
+    <ClCompile Include="20180512-bnds0112.cpp" />
+    <ClCompile Include="20180512-bnds0113.cpp" />
+    <ClCompile Include="20180513-bnds0114.cpp" />
+    <ClCompile Include="20180514-bnds0586.cpp" />
+    <ClCompile Include="20180514-bnds0587.cpp" />
+    <ClCompile Include="20180514-bnds0588.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

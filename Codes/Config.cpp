@@ -1,17 +1,16 @@
 #include "Overall.hpp"
 
 #include <SFML/Config.hpp>
+#include <SFML/GpuPreference.hpp>
 
 #ifdef SFML_SYSTEM_WINDOWS
 
 #include <windows.h>
 
 #ifdef USE_DISCRETE_GPU
-extern "C"
-{
-	__declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
-}
+
+SFML_DEFINE_DISCRETE_GPU_PREFERENCE
+
 #endif // USE_DISCRETE_GPU
 
 extern int main(int argc, char* argv[]);
