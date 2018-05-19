@@ -68,106 +68,7 @@
     <ClCompile Include="Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20180116-NetworkSoundStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180117-pi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180204-NetworkSoundClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="20180316-PiGraphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180421-luogu1498.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180421-luogu1908.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180422-luogu1010.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180422-luogu3372.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180429-luogu1601.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180429-luogu1303.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180429-luogu2142.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1115.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1739.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1449.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1996.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1030.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1087.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1305.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1164.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1060.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180430-luogu1111.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180504-luogu1048.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180504-luogu1005.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180504-luogu1601.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180504-luogu2142.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180504-luogu1303.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180504-luogu3374.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180504-luogu3368.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180505-luogu3373.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180505-luogu1339.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180506-luogu1546.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180506-luogu2330.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180506-luogu1991.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180508-luogu3375.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -181,12 +82,6 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui-SFML.cpp">
       <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="20180509-imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="20180511-luogu1346.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="20180512-bnds0110.cpp">
       <Filter>Source Files</Filter>
@@ -210,6 +105,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="20180514-bnds0588.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180515-bnds0586.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180515-bnds0588.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

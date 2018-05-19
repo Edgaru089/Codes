@@ -24,7 +24,7 @@ struct node {
 	node* next;
 };
 
-node pool[300000];
+node pool[31000000];
 node* h[50000];
 int top;
 
@@ -42,7 +42,7 @@ void addedge(int u, int v) {
 }
 
 
-int clubId[501], studentId[30001];
+int clubId[1000], studentId[60000];
 int n, m;
 
 queue<int> Q;
