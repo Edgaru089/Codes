@@ -166,25 +166,7 @@
   <ItemGroup>
     <ClCompile Include="20171109-CodeGenerator.cpp" />
     <ClCompile Include="20180316-PiGraphics.cpp" />
-    <ClCompile Include="20180512-bnds0110.cpp" />
-    <ClCompile Include="20180512-bnds0111.cpp" />
-    <ClCompile Include="20180512-bnds0112.cpp" />
-    <ClCompile Include="20180512-bnds0113.cpp" />
-    <ClCompile Include="20180513-bnds0114.cpp" />
-    <ClCompile Include="20180514-bnds0586.cpp" />
-    <ClCompile Include="20180514-bnds0587.cpp" />
-    <ClCompile Include="20180514-bnds0588.cpp" />
-    <ClCompile Include="20180515-bnds0586.cpp" />
-    <ClCompile Include="20180515-bnds0588.cpp" />
-    <ClCompile Include="20180519-bnds0232.cpp" />
-    <ClCompile Include="20180519-luogu3369.cpp" />
     <ClCompile Include="20180527-ImplFinder.cpp" />
-    <ClCompile Include="20180527-luogu3369.cpp" />
-    <ClCompile Include="20180528-bnds0592.cpp" />
-    <ClCompile Include="20180528-bnds0593-test.cpp" />
-    <ClCompile Include="20180528-bnds0593.cpp" />
-    <ClCompile Include="20180528-bnds0594.cpp" />
-    <ClCompile Include="20180530-bnds0592.cpp" />
     <ClCompile Include="20180605-bnds0175.cpp" />
     <ClCompile Include="20180605-luogu1091.cpp" />
     <ClCompile Include="20180605-luogu1280.cpp" />
