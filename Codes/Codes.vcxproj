@@ -170,6 +170,10 @@
     <ClCompile Include="20180605-bnds0175.cpp" />
     <ClCompile Include="20180605-luogu1091.cpp" />
     <ClCompile Include="20180605-luogu1280.cpp" />
+    <ClCompile Include="20180606-bnds0174.cpp" />
+    <ClCompile Include="20180611-bnds0607.cpp" />
+    <ClCompile Include="20180611-bnds0608.cpp" />
+    <ClCompile Include="20180611-bnds0609.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

@@ -17,7 +17,7 @@ using namespace std;
 
 int n;
 int a[500];
-int dp[110][110];
+int dp[500][500];
 
 int main(int argc, char* argv[]) {
 
@@ -28,15 +28,27 @@ int main(int argc, char* argv[]) {
 		a[i + 2 * n] = a[i];
 	}
 
-	for (int i = 1; i <= n; i++) {
-		for (int j = 2; j <= n; j++) {
+	for (int j = 2; j <= n; j++) {
+		for (int i = n; i >= 1; i--) {
 			for (int k = 1; k <= j - 1; k++) {
-				dp[i][j] = max(dp[i][j], dp[i][k] + dp[i + k][j - k] + a[i] * a[i + k] * a[i + j + 1]);
+				int id2 = (i + k) % n;
+				if (id2 == 0)
+					id2 = n;
+				if (k != 1 && dp[i][k] == 0) {
+					cout << "WRONG1" << endl;
+				}
+				if (j - k != 1 && dp[id2][j - k] == 0) {
+					cout << "WRONG2" << endl;
+				}
+				dp[i][j] = max(dp[i][j], dp[i][k] + dp[id2][j - k] + a[i] * a[i + k] * a[i + j]);
 			}
 		}
 	}
 
-	cout << dp[1][n] << endl;
+	int ans = 0;
+	for (int i = 1; i <= n; i++)
+		ans = max(ans, dp[i][n]);
+	cout << ans << endl;
 
 	return 0;
 }

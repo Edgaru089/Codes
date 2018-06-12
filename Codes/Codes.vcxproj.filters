@@ -95,5 +95,17 @@
     <ClCompile Include="20180605-bnds0175.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="20180606-bnds0174.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180611-bnds0607.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180611-bnds0608.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180611-bnds0609.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
