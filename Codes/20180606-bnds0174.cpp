@@ -41,6 +41,7 @@ int main(int argc, char* argv[]) {
 		if (flag[i] != 0)
 			continue;
 		for (int j = 0; j <= m; j++) {
+			dp[i][j] = max(dp[i][j], dp[i - 1][j]);
 			check(i, j, w[i], v[i]);
 			if (belongs[i].size() == 1)
 				check(i, j, w[i] + w[belongs[i][0]], v[i] + v[belongs[i][0]]);
