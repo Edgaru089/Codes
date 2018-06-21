@@ -149,5 +149,50 @@
     <ClCompile Include="20180618-bnds0006.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="20180619-bnds0072.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0073.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0074.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0077.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0080.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0081.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0085.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0090.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0093.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0094.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0095.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0096.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180619-bnds0100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180620-luogu3379.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180620-luogu1600.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
