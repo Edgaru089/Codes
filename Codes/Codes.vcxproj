@@ -101,7 +101,7 @@
       </OptimizeReferences>
     </Link>
     <Manifest>
-      <EnableDpiAwareness>true</EnableDpiAwareness>
+      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,7 +132,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>NotSet</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -203,6 +203,25 @@
     <ClCompile Include="20180619-bnds0100.cpp" />
     <ClCompile Include="20180620-luogu1600.cpp" />
     <ClCompile Include="20180620-luogu3379.cpp" />
+    <ClCompile Include="20180621-luogu2822.cpp" />
+    <ClCompile Include="20180621-luogu3958.cpp" />
+    <ClCompile Include="20180622-luogu3372.cpp" />
+    <ClCompile Include="20180622-luogu3384.cpp" />
+    <ClCompile Include="20180623-luogu3834.cpp" />
+    <ClCompile Include="20180624-luogu3919.cpp" />
+    <ClCompile Include="20180625-bnds0614.cpp" />
+    <ClCompile Include="20180625-bnds0615.cpp" />
+    <ClCompile Include="20180625-bnds0616.cpp" />
+    <ClCompile Include="20180626-bnds0614.cpp" />
+    <ClCompile Include="20180626-bnds0615.cpp" />
+    <ClCompile Include="20180626-CodeGenerator-ImGui.cpp" />
+    <ClCompile Include="20180627-bnds0616.cpp" />
+    <ClCompile Include="20180628-luogu1939.cpp" />
+    <ClCompile Include="20180628-luogu3376.cpp" />
+    <ClCompile Include="20180628-luogu3385.cpp" />
+    <ClCompile Include="20180628-luogu3386.cpp" />
+    <ClCompile Include="20180628-luogu3387.cpp" />
+    <ClCompile Include="20180628-luogu3390.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

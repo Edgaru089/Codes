@@ -1,5 +1,5 @@
 #include "imgui-SFML.h"
-#include "imgui.h"
+#include <imgui.h>
 
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics/Color.hpp>
@@ -8,12 +8,12 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Window/Touch.hpp>
 #include <SFML/Window/Window.hpp>
 
 #include <cmath> // abs
 #include <cstddef> // offsetof, NULL
 #include <cassert>
-#include <SFML/Window/Touch.hpp>
 
 #ifdef ANDROID
 #ifdef USE_JNI
@@ -61,7 +61,6 @@ int openKeyboardIME()
     vm->DetachCurrentThread();
 
     return EXIT_SUCCESS;
-
 }
 
 int closeKeyboardIME()
@@ -101,7 +100,6 @@ int closeKeyboardIME()
     vm->DetachCurrentThread();
 
     return EXIT_SUCCESS;
-
 }
 
 #endif
@@ -117,7 +115,7 @@ int closeKeyboardIME()
 namespace
 {
 // data
-static bool s_windowHasFocus = true;
+static bool s_windowHasFocus = false;
 static bool s_mousePressed[3] = { false, false, false };
 static bool s_touchDown[3] = { false, false, false };
 static bool s_mouseMoved = false;
@@ -169,10 +167,17 @@ namespace ImGui
 namespace SFML
 {
 
-void Init(sf::RenderTarget& target, bool loadDefaultFont)
+void Init(sf::RenderWindow& window, bool loadDefaultFont)
+{
+    Init(window, window, loadDefaultFont);
+}
+
+void Init(sf::Window& window, sf::RenderTarget& target, bool loadDefaultFont)
 {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
+
+    io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
     // init keyboard mapping
     io.KeyMap[ImGuiKey_Tab] = sf::Keyboard::Tab;
@@ -212,7 +217,6 @@ void Init(sf::RenderTarget& target, bool loadDefaultFont)
 
     // init rendering
     io.DisplaySize = static_cast<sf::Vector2f>(target.getSize());
-    io.RenderDrawListsFn = RenderDrawLists; // set render callback
 
     if (s_fontTexture) { // delete previously created texture
         delete s_fontTexture;
@@ -224,6 +228,8 @@ void Init(sf::RenderTarget& target, bool loadDefaultFont)
         // No need to call AddDefaultFont
         UpdateFontTexture();
     }
+
+    s_windowHasFocus = window.hasFocus();
 }
 
 void ProcessEvent(const sf::Event& event)
@@ -314,7 +320,10 @@ void Update(sf::Window& window, sf::RenderTarget& target, sf::Time dt)
         Update(sf::Mouse::getPosition(window), static_cast<sf::Vector2f>(target.getSize()), dt);
     }
 
-    window.setMouseCursorVisible(!ImGui::GetIO().MouseDrawCursor); // don't draw mouse cursor if ImGui draws it
+    if (ImGui::GetIO().MouseDrawCursor) {
+        // Hide OS mouse cursor if imgui is drawing it
+        window.setMouseCursorVisible(false);
+    }
 }
 
 void Update(const sf::Vector2i& mousePos, const sf::Vector2f& displaySize, sf::Time dt)
@@ -324,7 +333,11 @@ void Update(const sf::Vector2i& mousePos, const sf::Vector2f& displaySize, sf::T
     io.DeltaTime = dt.asSeconds();
 
     if (s_windowHasFocus) {
-        io.MousePos = mousePos;
+        if (io.WantSetMousePos) {
+            sf::Mouse::setPosition(static_cast<sf::Vector2i>(io.MousePos));
+        } else {
+            io.MousePos = mousePos;
+        }
         for (unsigned int i = 0; i < 3; i++) {
             io.MouseDown[i] =  s_touchDown[i] || sf::Touch::isDown(i) || s_mousePressed[i] || sf::Mouse::isButtonPressed((sf::Mouse::Button)i);
             s_mousePressed[i] = false;
@@ -334,13 +347,12 @@ void Update(const sf::Vector2i& mousePos, const sf::Vector2f& displaySize, sf::T
 
 #ifdef ANDROID
 #ifdef USE_JNI
-    if (io.WantTextInput && !s_wantTextInput)
-    {
+    if (io.WantTextInput && !s_wantTextInput) {
         openKeyboardIME();
         s_wantTextInput = true;
     }
-    if (!io.WantTextInput && s_wantTextInput)
-    {
+
+    if (!io.WantTextInput && s_wantTextInput) {
         closeKeyboardIME();
         s_wantTextInput = false;
     }
@@ -374,6 +386,7 @@ void Render(sf::RenderTarget& target)
 {
     target.resetGLStates();
     ImGui::Render();
+    RenderDrawLists(ImGui::GetDrawData());
 }
 
 void Shutdown()
@@ -587,6 +600,7 @@ ImVec2 getDownRightAbsolute(const sf::FloatRect & rect)
 // Rendering callback
 void RenderDrawLists(ImDrawData* draw_data)
 {
+    ImGui::GetDrawData();
     if (draw_data->CmdListsCount == 0) {
         return;
     }
