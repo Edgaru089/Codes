@@ -146,6 +146,7 @@ int main(int argc, char* argv[]) {
 		Event e;
 		while (win.pollEvent(e)) {
 			imgui::SFML::ProcessEvent(e);
+
 			if (e.type == Event::KeyPressed)
 				if (e.key.code == Keyboard::Escape)
 					win.close();
@@ -168,7 +169,7 @@ int main(int argc, char* argv[]) {
 		imgui::SetNextWindowSize(win.getSize() + Vector2u(2, 2), ImGuiCond_Always);
 		imgui::SetNextWindowPos(ImVec2(-1, -1));
 		imgui::SetNextWindowBgAlpha(0.0);
-		imgui::Begin("MainFrame", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+		imgui::Begin("MainFrame", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 		if (wantFocus) {
 			imgui::SetKeyboardFocusHere();
 			wantFocus = false;
