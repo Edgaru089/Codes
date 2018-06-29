@@ -1078,36 +1078,6 @@ static const char* ImAtoi(const char* src, int* output)
     return src;
 }
 
-// A) MSVC version appears to return -1 on overflow, whereas glibc appears to return total count (which may be >= buf_size). 
-// Ideally we would test for only one of those limits at runtime depending on the behavior the vsnprintf(), but trying to deduct it at compile time sounds like a pandora can of worm.
-// B) When buf==NULL vsnprintf() will return the output size.
-#ifndef IMGUI_DISABLE_FORMAT_STRING_FUNCTIONS
-int ImFormatString(char* buf, size_t buf_size, const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    int w = vsnprintf(buf, buf_size, fmt, args);
-    va_end(args);
-    if (buf == NULL)
-        return w;
-    if (w == -1 || w >= (int)buf_size)
-        w = (int)buf_size - 1;
-    buf[w] = 0;
-    return w;
-}
-
-int ImFormatStringV(char* buf, size_t buf_size, const char* fmt, va_list args)
-{
-    int w = vsnprintf(buf, buf_size, fmt, args);
-    if (buf == NULL)
-        return w;
-    if (w == -1 || w >= (int)buf_size)
-        w = (int)buf_size - 1;
-    buf[w] = 0;
-    return w;
-}
-#endif // #ifdef IMGUI_DISABLE_FORMAT_STRING_FUNCTIONS
-
 // Pass data_size==0 for zero-terminated strings
 // FIXME-OPT: Replace with e.g. FNV1a hash? CRC32 pretty much randomly access 1KB. Need to do proper measurements.
 ImU32 ImHash(const void* data, int data_size, ImU32 seed)
@@ -1742,45 +1712,7 @@ bool ImGuiTextFilter::PassFilter(const char* text, const char* text_end) const
 // ImGuiTextBuffer
 //-----------------------------------------------------------------------------
 
-// On some platform vsnprintf() takes va_list by reference and modifies it.
-// va_copy is the 'correct' way to copy a va_list but Visual Studio prior to 2013 doesn't have it.
-#ifndef va_copy
-#define va_copy(dest, src) (dest = src)
-#endif
-
-// Helper: Text buffer for logging/accumulating text
-void ImGuiTextBuffer::appendfv(const char* fmt, va_list args)
-{
-    va_list args_copy;
-    va_copy(args_copy, args);
-
-    int len = ImFormatStringV(NULL, 0, fmt, args);         // FIXME-OPT: could do a first pass write attempt, likely successful on first pass.
-    if (len <= 0)
-    {
-        va_end(args_copy);
-        return;
-    }
-
-    const int write_off = Buf.Size;
-    const int needed_sz = write_off + len;
-    if (write_off + len >= Buf.Capacity)
-    {
-        int double_capacity = Buf.Capacity * 2;
-        Buf.reserve(needed_sz > double_capacity ? needed_sz : double_capacity);
-    }
-
-    Buf.resize(needed_sz);
-    ImFormatStringV(&Buf[write_off - 1], (size_t)len + 1, fmt, args_copy);
-    va_end(args_copy);
-}
-
-void ImGuiTextBuffer::appendf(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    appendfv(fmt, args);
-    va_end(args);
-}
+// Moved into imgui.h
 
 //-----------------------------------------------------------------------------
 // ImGuiSimpleColumns (internal use only)
@@ -4171,22 +4103,6 @@ const char* ImGui::FindRenderedTextEnd(const char* text, const char* text_end)
     return text_display_end;
 }
 
-// Pass text data straight to log (without being displayed)
-void ImGui::LogText(const char* fmt, ...)
-{
-    ImGuiContext& g = *GImGui;
-    if (!g.LogEnabled)
-        return;
-
-    va_list args;
-    va_start(args, fmt);
-    if (g.LogFile)
-        vfprintf(g.LogFile, fmt, args);
-    else
-        g.LogClipboard.appendfv(fmt, args);
-    va_end(args);
-}
-
 // Internal version that takes a position to decide on newline placement and pad items according to their depth.
 // We split text into individual lines to add current tree level padding
 static void LogRenderedText(const ImVec2* ref_pos, const char* text, const char* text_end = NULL)
@@ -4826,21 +4742,6 @@ void ImGui::BeginTooltipEx(ImGuiWindowFlags extra_flags, bool override_previous_
             }
     ImGuiWindowFlags flags = ImGuiWindowFlags_Tooltip|ImGuiWindowFlags_NoInputs|ImGuiWindowFlags_NoTitleBar|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_AlwaysAutoResize|ImGuiWindowFlags_NoNav;
     Begin(window_name, NULL, flags | extra_flags);
-}
-
-void ImGui::SetTooltipV(const char* fmt, va_list args)
-{
-    BeginTooltipEx(0, true);
-    TextV(fmt, args);
-    EndTooltip();
-}
-
-void ImGui::SetTooltip(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    SetTooltipV(fmt, args);
-    va_end(args);
 }
 
 void ImGui::BeginTooltip()
@@ -7345,70 +7246,6 @@ ImGuiStorage* ImGui::GetStateStorage()
     return window->DC.StateStorage;
 }
 
-void ImGui::TextV(const char* fmt, va_list args)
-{
-    ImGuiWindow* window = GetCurrentWindow();
-    if (window->SkipItems)
-        return;
-
-    ImGuiContext& g = *GImGui;
-    const char* text_end = g.TempBuffer + ImFormatStringV(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args);
-    TextUnformatted(g.TempBuffer, text_end);
-}
-
-void ImGui::Text(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    TextV(fmt, args);
-    va_end(args);
-}
-
-void ImGui::TextColoredV(const ImVec4& col, const char* fmt, va_list args)
-{
-    PushStyleColor(ImGuiCol_Text, col);
-    TextV(fmt, args);
-    PopStyleColor();
-}
-
-void ImGui::TextColored(const ImVec4& col, const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    TextColoredV(col, fmt, args);
-    va_end(args);
-}
-
-void ImGui::TextDisabledV(const char* fmt, va_list args)
-{
-    PushStyleColor(ImGuiCol_Text, GImGui->Style.Colors[ImGuiCol_TextDisabled]);
-    TextV(fmt, args);
-    PopStyleColor();
-}
-
-void ImGui::TextDisabled(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    TextDisabledV(fmt, args);
-    va_end(args);
-}
-
-void ImGui::TextWrappedV(const char* fmt, va_list args)
-{
-    bool need_wrap = (GImGui->CurrentWindow->DC.TextWrapPos < 0.0f);    // Keep existing wrap position is one ia already set
-    if (need_wrap) PushTextWrapPos(0.0f);
-    TextV(fmt, args);
-    if (need_wrap) PopTextWrapPos();
-}
-
-void ImGui::TextWrapped(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    TextWrappedV(fmt, args);
-    va_end(args);
-}
 
 void ImGui::TextUnformatted(const char* text, const char* text_end)
 {
@@ -7525,40 +7362,6 @@ void ImGui::AlignTextToFramePadding()
     ImGuiContext& g = *GImGui;
     window->DC.CurrentLineHeight = ImMax(window->DC.CurrentLineHeight, g.FontSize + g.Style.FramePadding.y * 2);
     window->DC.CurrentLineTextBaseOffset = ImMax(window->DC.CurrentLineTextBaseOffset, g.Style.FramePadding.y);
-}
-
-// Add a label+text combo aligned to other label+value widgets
-void ImGui::LabelTextV(const char* label, const char* fmt, va_list args)
-{
-    ImGuiWindow* window = GetCurrentWindow();
-    if (window->SkipItems)
-        return;
-
-    ImGuiContext& g = *GImGui;
-    const ImGuiStyle& style = g.Style;
-    const float w = CalcItemWidth();
-
-    const ImVec2 label_size = CalcTextSize(label, NULL, true);
-    const ImRect value_bb(window->DC.CursorPos, window->DC.CursorPos + ImVec2(w, label_size.y + style.FramePadding.y*2));
-    const ImRect total_bb(window->DC.CursorPos, window->DC.CursorPos + ImVec2(w + (label_size.x > 0.0f ? style.ItemInnerSpacing.x : 0.0f), style.FramePadding.y*2) + label_size);
-    ItemSize(total_bb, style.FramePadding.y);
-    if (!ItemAdd(total_bb, 0))
-        return;
-
-    // Render
-    const char* value_text_begin = &g.TempBuffer[0];
-    const char* value_text_end = value_text_begin + ImFormatStringV(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args);
-    RenderTextClipped(value_bb.Min, value_bb.Max, value_text_begin, value_text_end, NULL, ImVec2(0.0f,0.5f));
-    if (label_size.x > 0.0f)
-        RenderText(ImVec2(value_bb.Max.x + style.ItemInnerSpacing.x, value_bb.Min.y + style.FramePadding.y), label);
-}
-
-void ImGui::LabelText(const char* label, const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    LabelTextV(label, fmt, args);
-    va_end(args);
 }
 
 bool ImGui::ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool* out_held, ImGuiButtonFlags flags)
@@ -8246,73 +8049,6 @@ bool ImGui::TreeNodeEx(const char* label, ImGuiTreeNodeFlags flags)
     return TreeNodeBehavior(window->GetID(label), flags, label, NULL);
 }
 
-bool ImGui::TreeNodeExV(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args)
-{
-    ImGuiWindow* window = GetCurrentWindow();
-    if (window->SkipItems)
-        return false;
-
-    ImGuiContext& g = *GImGui;
-    const char* label_end = g.TempBuffer + ImFormatStringV(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args);
-    return TreeNodeBehavior(window->GetID(str_id), flags, g.TempBuffer, label_end);
-}
-
-bool ImGui::TreeNodeExV(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args)
-{
-    ImGuiWindow* window = GetCurrentWindow();
-    if (window->SkipItems)
-        return false;
-
-    ImGuiContext& g = *GImGui;
-    const char* label_end = g.TempBuffer + ImFormatStringV(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args);
-    return TreeNodeBehavior(window->GetID(ptr_id), flags, g.TempBuffer, label_end);
-}
-
-bool ImGui::TreeNodeV(const char* str_id, const char* fmt, va_list args)
-{
-    return TreeNodeExV(str_id, 0, fmt, args);
-}
-
-bool ImGui::TreeNodeV(const void* ptr_id, const char* fmt, va_list args)
-{
-    return TreeNodeExV(ptr_id, 0, fmt, args);
-}
-
-bool ImGui::TreeNodeEx(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    bool is_open = TreeNodeExV(str_id, flags, fmt, args);
-    va_end(args);
-    return is_open;
-}
-
-bool ImGui::TreeNodeEx(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    bool is_open = TreeNodeExV(ptr_id, flags, fmt, args);
-    va_end(args);
-    return is_open;
-}
-
-bool ImGui::TreeNode(const char* str_id, const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    bool is_open = TreeNodeExV(str_id, 0, fmt, args);
-    va_end(args);
-    return is_open;
-}
-
-bool ImGui::TreeNode(const void* ptr_id, const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    bool is_open = TreeNodeExV(ptr_id, 0, fmt, args);
-    va_end(args);
-    return is_open;
-}
 
 bool ImGui::TreeNode(const char* label)
 {
@@ -8410,39 +8146,6 @@ void ImGui::Bullet()
     // Render and stay on same line
     RenderBullet(bb.Min + ImVec2(style.FramePadding.x + g.FontSize*0.5f, line_height*0.5f));
     SameLine(0, style.FramePadding.x*2);
-}
-
-// Text with a little bullet aligned to the typical tree node.
-void ImGui::BulletTextV(const char* fmt, va_list args)
-{
-    ImGuiWindow* window = GetCurrentWindow();
-    if (window->SkipItems)
-        return;
-
-    ImGuiContext& g = *GImGui;
-    const ImGuiStyle& style = g.Style;
-
-    const char* text_begin = g.TempBuffer;
-    const char* text_end = text_begin + ImFormatStringV(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args);
-    const ImVec2 label_size = CalcTextSize(text_begin, text_end, false);
-    const float text_base_offset_y = ImMax(0.0f, window->DC.CurrentLineTextBaseOffset); // Latch before ItemSize changes it
-    const float line_height = ImMax(ImMin(window->DC.CurrentLineHeight, g.FontSize + g.Style.FramePadding.y*2), g.FontSize);
-    const ImRect bb(window->DC.CursorPos, window->DC.CursorPos + ImVec2(g.FontSize + (label_size.x > 0.0f ? (label_size.x + style.FramePadding.x*2) : 0.0f), ImMax(line_height, label_size.y)));  // Empty text doesn't add padding
-    ItemSize(bb);
-    if (!ItemAdd(bb, 0))
-        return;
-
-    // Render
-    RenderBullet(bb.Min + ImVec2(style.FramePadding.x + g.FontSize*0.5f, line_height*0.5f));
-    RenderText(bb.Min+ImVec2(g.FontSize + style.FramePadding.x*2, text_base_offset_y), text_begin, text_end, false);
-}
-
-void ImGui::BulletText(const char* fmt, ...)
-{
-    va_list args;
-    va_start(args, fmt);
-    BulletTextV(fmt, args);
-    va_end(args);
 }
 
 static inline int DataTypeFormatString(char* buf, int buf_size, ImGuiDataType data_type, const void* data_ptr, const char* format)

@@ -3,7 +3,7 @@
 
 // You may use this file to debug, understand or extend ImGui features but we don't provide any guarantee of forward compatibility!
 // Set:
-//   #define IMGUI_DEFINE_MATH_OPERATORS
+   #define IMGUI_DEFINE_MATH_OPERATORS
 // To implement maths operators for ImVec2 (disabled by default to not collide with using IM_VEC2_CLASS_EXTRA along with your own math types+operators)
 
 #pragma once
@@ -117,8 +117,22 @@ IMGUI_API const char*   ImStrchrRange(const char* str_begin, const char* str_end
 IMGUI_API int           ImStrlenW(const ImWchar* str);
 IMGUI_API const ImWchar*ImStrbolW(const ImWchar* buf_mid_line, const ImWchar* buf_begin); // Find beginning-of-line
 IMGUI_API const char*   ImStristr(const char* haystack, const char* haystack_end, const char* needle, const char* needle_end);
-IMGUI_API int           ImFormatString(char* buf, size_t buf_size, const char* fmt, ...) IM_FMTARGS(3);
-IMGUI_API int           ImFormatStringV(char* buf, size_t buf_size, const char* fmt, va_list args) IM_FMTLIST(3);
+// A) MSVC version appears to return -1 on overflow, whereas glibc appears to return total count (which may be >= buf_size). 
+// Ideally we would test for only one of those limits at runtime depending on the behavior the vsnprintf(), but trying to deduct it at compile time sounds like a pandora can of worm.
+// B) When buf==NULL vsnprintf() will return the output size.
+#ifndef IMGUI_DISABLE_FORMAT_STRING_FUNCTIONS
+template<typename... Args>
+int ImFormatString(char* buf, size_t buf_size, const char* fmt, Args... args)
+{
+    int w = snprintf(buf, buf_size, fmt, args...);
+    if (buf == NULL)
+        return w;
+    if (w == -1 || w >= (int)buf_size)
+        w = (int)buf_size - 1;
+    buf[w] = 0;
+    return w;
+}
+#endif // #ifdef IMGUI_DISABLE_FORMAT_STRING_FUNCTIONS
 
 // Helpers: Math
 // We are keeping those not leaking to the user by default, in the case the user has implicit cast operators between ImVec2 and its own types (when IM_VEC2_CLASS_EXTRA is defined)
@@ -1141,6 +1155,177 @@ IMGUI_API void              ImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas, 
 IMGUI_API void              ImFontAtlasBuildFinish(ImFontAtlas* atlas);
 IMGUI_API void              ImFontAtlasBuildMultiplyCalcLookupTable(unsigned char out_table[256], float in_multiply_factor);
 IMGUI_API void              ImFontAtlasBuildMultiplyRectAlpha8(const unsigned char table[256], unsigned char* pixels, int x, int y, int w, int h, int stride);
+
+
+
+// Inline functions that uses template
+
+// Helper: Text buffer for logging/accumulating text
+template<typename... Args>
+void ImGuiTextBuffer::appendf(const char* fmt, Args... args)
+{
+	int len = ImFormatString(NULL, 0, fmt, args...);         // FIXME-OPT: could do a first pass write attempt, likely successful on first pass.
+
+	if (len <= 0)
+		return;
+
+	const int write_off = Buf.Size;
+	const int needed_sz = write_off + len;
+	if (write_off + len >= Buf.Capacity)
+	{
+		int double_capacity = Buf.Capacity * 2;
+		Buf.reserve(needed_sz > double_capacity ? needed_sz : double_capacity);
+	}
+
+	Buf.resize(needed_sz);
+	ImFormatString(&Buf[write_off - 1], (size_t)len + 1, fmt, args...);
+}
+
+template<typename... Args>
+void ImGui::LogText(const char* fmt, Args... args)
+{
+	ImGuiContext& g = *GImGui;
+	if (!g.LogEnabled)
+		return;
+
+	if (g.LogFile)
+		fprintf(g.LogFile, fmt, args...);
+	else
+		g.LogClipboard.appendf(fmt, args...);
+}
+template<typename... Args>
+void ImGui::SetTooltip(const char* fmt, Args... args)
+{
+	BeginTooltipEx(0, true);
+	Text(fmt, args...);
+	EndTooltip();
+}
+template<typename... Args>
+void ImGui::Text(const char* fmt, Args... args)
+{
+	ImGuiWindow* window = GetCurrentWindow();
+	if (window->SkipItems)
+		return;
+
+	ImGuiContext& g = *ImGui::GetCurrentContext();
+	const char* text_end = g.TempBuffer + ImFormatString(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args...);
+	TextUnformatted(g.TempBuffer, text_end);
+}
+
+template<typename... Args>
+void ImGui::TextColored(const ImVec4& col, const char* fmt, Args... args)
+{
+	PushStyleColor(ImGuiCol_Text, col);
+	Text(fmt, args...);
+	PopStyleColor();
+}
+
+template<typename... Args>
+void ImGui::TextDisabled(const char* fmt, Args... args)
+{
+	PushStyleColor(ImGuiCol_Text, ImGui::GetCurrentContext()->Style.Colors[ImGuiCol_TextDisabled]);
+	Text(fmt, args...);
+	PopStyleColor();
+}
+
+template<typename... Args>
+void ImGui::TextWrapped(const char* fmt, Args... args)
+{
+	bool need_wrap = (GImGui->CurrentWindow->DC.TextWrapPos < 0.0f);    // Keep existing wrap position is one ia already set
+	if (need_wrap) PushTextWrapPos(0.0f);
+	Text(fmt, args...);
+	if (need_wrap) PopTextWrapPos();
+}
+// Add a label+text combo aligned to other label+value widgets
+template<typename... Args>
+void ImGui::LabelText(const char* label, const char* fmt, Args... args)
+{
+	ImGuiWindow* window = GetCurrentWindow();
+	if (window->SkipItems)
+		return;
+
+	ImGuiContext& g = *GImGui;
+	const ImGuiStyle& style = g.Style;
+	const float w = CalcItemWidth();
+
+	const ImVec2 label_size = CalcTextSize(label, NULL, true);
+	const ImRect value_bb(window->DC.CursorPos, window->DC.CursorPos + ImVec2(w, label_size.y + style.FramePadding.y * 2));
+	const ImRect total_bb(window->DC.CursorPos, window->DC.CursorPos + ImVec2(w + (label_size.x > 0.0f ? style.ItemInnerSpacing.x : 0.0f), style.FramePadding.y * 2) + label_size);
+	ItemSize(total_bb, style.FramePadding.y);
+	if (!ItemAdd(total_bb, 0))
+		return;
+
+	// Render
+	const char* value_text_begin = &g.TempBuffer[0];
+	const char* value_text_end = value_text_begin + ImFormatString(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args...);
+	RenderTextClipped(value_bb.Min, value_bb.Max, value_text_begin, value_text_end, NULL, ImVec2(0.0f, 0.5f));
+	if (label_size.x > 0.0f)
+		RenderText(ImVec2(value_bb.Max.x + style.ItemInnerSpacing.x, value_bb.Min.y + style.FramePadding.y), label);
+}
+template<typename... Args>
+bool ImGui::TreeNodeEx(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, Args... args)
+{
+	ImGuiWindow* window = GetCurrentWindow();
+	if (window->SkipItems)
+		return false;
+
+	ImGuiContext& g = *GImGui;
+	const char* label_end = g.TempBuffer + ImFormatString(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args...);
+	return TreeNodeBehavior(window->GetID(str_id), flags, g.TempBuffer, label_end);
+}
+
+template<typename... Args>
+bool ImGui::TreeNodeEx(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, Args... args)
+{
+	ImGuiWindow* window = GetCurrentWindow();
+	if (window->SkipItems)
+		return false;
+
+	ImGuiContext& g = *GImGui;
+	const char* label_end = g.TempBuffer + ImFormatString(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args...);
+	return TreeNodeBehavior(window->GetID(ptr_id), flags, g.TempBuffer, label_end);
+}
+
+template<typename... Args>
+bool ImGui::TreeNode(const char* str_id, const char* fmt, Args... args)
+{
+	return TreeNodeEx(str_id, 0, fmt, args...);
+}
+
+template<typename... Args>
+bool ImGui::TreeNode(const void* ptr_id, const char* fmt, Args... args)
+{
+	return TreeNodeEx(ptr_id, 0, fmt, args...);
+}
+
+// Text with a little bullet aligned to the typical tree node.
+template<typename... Args>
+void ImGui::BulletText(const char* fmt, Args... args)
+{
+	ImGuiWindow* window = GetCurrentWindow();
+	if (window->SkipItems)
+		return;
+
+	ImGuiContext& g = *GImGui;
+	const ImGuiStyle& style = g.Style;
+
+	const char* text_begin = g.TempBuffer;
+	const char* text_end = text_begin + ImFormatString(g.TempBuffer, IM_ARRAYSIZE(g.TempBuffer), fmt, args...);
+	const ImVec2 label_size = CalcTextSize(text_begin, text_end, false);
+	const float text_base_offset_y = ImMax(0.0f, window->DC.CurrentLineTextBaseOffset); // Latch before ItemSize changes it
+	const float line_height = ImMax(ImMin(window->DC.CurrentLineHeight, g.FontSize + g.Style.FramePadding.y * 2), g.FontSize);
+	const ImRect bb(window->DC.CursorPos, window->DC.CursorPos + ImVec2(g.FontSize + (label_size.x > 0.0f ? (label_size.x + style.FramePadding.x * 2) : 0.0f), ImMax(line_height, label_size.y)));  // Empty text doesn't add padding
+	ItemSize(bb);
+	if (!ItemAdd(bb, 0))
+		return;
+
+	// Render
+	RenderBullet(bb.Min + ImVec2(style.FramePadding.x + g.FontSize*0.5f, line_height*0.5f));
+	RenderText(bb.Min + ImVec2(g.FontSize + style.FramePadding.x * 2, text_base_offset_y), text_begin, text_end, false);
+}
+
+
+
 
 #ifdef __clang__
 #pragma clang diagnostic pop

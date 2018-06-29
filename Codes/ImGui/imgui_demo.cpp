@@ -23,6 +23,7 @@
 #endif
 
 #include "imgui.h"
+#include "imgui_internal.h"
 #include <ctype.h>          // toupper, isprint
 #include <math.h>           // sqrtf, powf, cosf, sinf, floorf, ceilf
 #include <stdio.h>          // vsnprintf, sscanf, printf
@@ -2678,15 +2679,13 @@ struct ExampleAppConsole
         ScrollToBottom = true;
     }
 
-    void    AddLog(const char* fmt, ...) IM_FMTARGS(2)
+	template<typename... Args>
+    void    AddLog(const char* fmt, Args... args) IM_FMTARGS(2)
     {
         // FIXME-OPT
         char buf[1024];
-        va_list args;
-        va_start(args, fmt);
-        vsnprintf(buf, IM_ARRAYSIZE(buf), fmt, args);
+        snprintf(buf, IM_ARRAYSIZE(buf), fmt, args...);
         buf[IM_ARRAYSIZE(buf)-1] = 0;
-        va_end(args);
         Items.push_back(Strdup(buf));
         ScrollToBottom = true;
     }
@@ -2956,13 +2955,11 @@ struct ExampleAppLog
 
     void    Clear()     { Buf.clear(); LineOffsets.clear(); }
 
-    void    AddLog(const char* fmt, ...) IM_FMTARGS(2)
+	template<typename... Args>
+    void    AddLog(const char* fmt, Args... args) IM_FMTARGS(2)
     {
         int old_size = Buf.size();
-        va_list args;
-        va_start(args, fmt);
-        Buf.appendfv(fmt, args);
-        va_end(args);
+        Buf.appendf(fmt, args...);
         for (int new_size = Buf.size(); old_size < new_size; old_size++)
             if (Buf[old_size] == '\n')
                 LineOffsets.push_back(old_size);

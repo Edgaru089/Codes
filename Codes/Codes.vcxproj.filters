@@ -251,5 +251,23 @@
     <ClCompile Include="20180628-luogu3387.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="20180628-luogu3388.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180629-luogu3369.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180629-luogu3377.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180629-luogu1576.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180629-luogu1828.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20180629-luogu1144.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

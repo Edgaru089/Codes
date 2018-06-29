@@ -293,18 +293,18 @@ namespace ImGui
 
     // Widgets: Text
     IMGUI_API void          TextUnformatted(const char* text, const char* text_end = NULL);                // raw text without formatting. Roughly equivalent to Text("%s", text) but: A) doesn't require null terminated string if 'text_end' is specified, B) it's faster, no memory copy is done, no buffer size limits, recommended for long chunks of text.
-    IMGUI_API void          Text(const char* fmt, ...)                                      IM_FMTARGS(1); // simple formatted text
-    IMGUI_API void          TextV(const char* fmt, va_list args)                            IM_FMTLIST(1);
-    IMGUI_API void          TextColored(const ImVec4& col, const char* fmt, ...)            IM_FMTARGS(2); // shortcut for PushStyleColor(ImGuiCol_Text, col); Text(fmt, ...); PopStyleColor();
-    IMGUI_API void          TextColoredV(const ImVec4& col, const char* fmt, va_list args)  IM_FMTLIST(2);
-    IMGUI_API void          TextDisabled(const char* fmt, ...)                              IM_FMTARGS(1); // shortcut for PushStyleColor(ImGuiCol_Text, style.Colors[ImGuiCol_TextDisabled]); Text(fmt, ...); PopStyleColor();
-    IMGUI_API void          TextDisabledV(const char* fmt, va_list args)                    IM_FMTLIST(1);
-    IMGUI_API void          TextWrapped(const char* fmt, ...)                               IM_FMTARGS(1); // shortcut for PushTextWrapPos(0.0f); Text(fmt, ...); PopTextWrapPos();. Note that this won't work on an auto-resizing window if there's no other widgets to extend the window width, yoy may need to set a size using SetNextWindowSize().
-    IMGUI_API void          TextWrappedV(const char* fmt, va_list args)                     IM_FMTLIST(1);
-    IMGUI_API void          LabelText(const char* label, const char* fmt, ...)              IM_FMTARGS(2); // display text+label aligned the same way as value+label widgets
-    IMGUI_API void          LabelTextV(const char* label, const char* fmt, va_list args)    IM_FMTLIST(2);
-    IMGUI_API void          BulletText(const char* fmt, ...)                                IM_FMTARGS(1); // shortcut for Bullet()+Text()
-    IMGUI_API void          BulletTextV(const char* fmt, va_list args)                      IM_FMTLIST(1);
+	template<typename... Args>
+	IMGUI_API void          Text(const char* fmt, Args... args)                            IM_FMTLIST(1);
+	template<typename... Args>
+	IMGUI_API void          TextColored(const ImVec4& col, const char* fmt, Args... args)  IM_FMTLIST(2);
+	template<typename... Args>
+	IMGUI_API void          TextDisabled(const char* fmt, Args... args)                    IM_FMTLIST(1);
+	template<typename... Args>
+	IMGUI_API void          TextWrapped(const char* fmt, Args... args)                     IM_FMTLIST(1);
+	template<typename... Args>
+    IMGUI_API void          LabelText(const char* label, const char* fmt, Args... args)    IM_FMTLIST(2);  // display text+label aligned the same way as value+label widgets
+	template<typename... Args>
+	IMGUI_API void          BulletText(const char* fmt, Args... args)                      IM_FMTLIST(1);  // shortcut for Bullet()+Text()
 
     // Widgets: Main
     IMGUI_API bool          Button(const char* label, const ImVec2& size = ImVec2(0,0));    // button
@@ -384,15 +384,15 @@ namespace ImGui
 
     // Widgets: Trees
     IMGUI_API bool          TreeNode(const char* label);                                        // if returning 'true' the node is open and the tree id is pushed into the id stack. user is responsible for calling TreePop().
-    IMGUI_API bool          TreeNode(const char* str_id, const char* fmt, ...) IM_FMTARGS(2);   // read the FAQ about why and how to use ID. to align arbitrary text at the same level as a TreeNode() you can use Bullet().
-    IMGUI_API bool          TreeNode(const void* ptr_id, const char* fmt, ...) IM_FMTARGS(2);   // "
-    IMGUI_API bool          TreeNodeV(const char* str_id, const char* fmt, va_list args) IM_FMTLIST(2);
-    IMGUI_API bool          TreeNodeV(const void* ptr_id, const char* fmt, va_list args) IM_FMTLIST(2);
+    template<typename... Args>
+	IMGUI_API bool          TreeNode(const char* str_id, const char* fmt, Args... args) IM_FMTLIST(2); // read the FAQ about why and how to use ID. to align arbitrary text at the same level as a TreeNode() you can use Bullet().
+	template<typename... Args>
+	IMGUI_API bool          TreeNode(const void* ptr_id, const char* fmt, Args... args) IM_FMTLIST(2); // "
     IMGUI_API bool          TreeNodeEx(const char* label, ImGuiTreeNodeFlags flags = 0);
-    IMGUI_API bool          TreeNodeEx(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, ...) IM_FMTARGS(3);
-    IMGUI_API bool          TreeNodeEx(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, ...) IM_FMTARGS(3);
-    IMGUI_API bool          TreeNodeExV(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args) IM_FMTLIST(3);
-    IMGUI_API bool          TreeNodeExV(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args) IM_FMTLIST(3);
+	template<typename... Args>
+    IMGUI_API bool          TreeNodeEx(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, Args... args) IM_FMTLIST(3);
+	template<typename... Args>
+    IMGUI_API bool          TreeNodeEx(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, Args... args) IM_FMTLIST(3);
     IMGUI_API void          TreePush(const char* str_id);                                       // ~ Indent()+PushId(). Already called by TreeNode() when returning true, but you can call Push/Pop yourself for layout purpose
     IMGUI_API void          TreePush(const void* ptr_id = NULL);                                // "
     IMGUI_API void          TreePop();                                                          // ~ Unindent()+PopId()
@@ -418,8 +418,8 @@ namespace ImGui
     IMGUI_API void          Value(const char* prefix, float v, const char* float_format = NULL);
 
     // Tooltips
-    IMGUI_API void          SetTooltip(const char* fmt, ...) IM_FMTARGS(1);                     // set text tooltip under mouse-cursor, typically use with ImGui::IsItemHovered(). overidde any previous call to SetTooltip().
-    IMGUI_API void          SetTooltipV(const char* fmt, va_list args) IM_FMTLIST(1);
+	template<typename... Args>
+	IMGUI_API void          SetTooltip(const char* fmt, Args... args) IM_FMTLIST(1);
     IMGUI_API void          BeginTooltip();                                                     // begin/append a tooltip window. to create full-featured tooltip (with any kind of contents).
     IMGUI_API void          EndTooltip();
 
@@ -462,7 +462,8 @@ namespace ImGui
     IMGUI_API void          LogToClipboard(int max_depth = -1);                                 // start logging to OS clipboard
     IMGUI_API void          LogFinish();                                                        // stop logging (close file, etc.)
     IMGUI_API void          LogButtons();                                                       // helper to display buttons for logging to tty/file/clipboard
-    IMGUI_API void          LogText(const char* fmt, ...) IM_FMTARGS(1);                        // pass text data straight to log (without being displayed)
+	template<typename... Args>
+    IMGUI_API void          LogText(const char* fmt, Args... args) IM_FMTARGS(1);                        // pass text data straight to log (without being displayed)
 
     // Drag and Drop
     // [BETA API] Missing Demo code. API may evolve.
@@ -1291,8 +1292,8 @@ struct ImGuiTextBuffer
     void                clear() { Buf.clear(); Buf.push_back(0); }
     void                reserve(int capacity) { Buf.reserve(capacity); }
     const char*         c_str() const { return Buf.Data; }
-    IMGUI_API void      appendf(const char* fmt, ...) IM_FMTARGS(2);
-    IMGUI_API void      appendfv(const char* fmt, va_list args) IM_FMTLIST(2);
+	template<typename... Args>
+	IMGUI_API void      appendf(const char* fmt, Args... args) IM_FMTARGS(2);
 };
 
 // Helper: Simple Key->value storage

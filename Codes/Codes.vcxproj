@@ -91,7 +91,6 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MinimalRebuild>
       </MinimalRebuild>
-      <EnableModules>true</EnableModules>
       <CreateHotpatchableImage>true</CreateHotpatchableImage>
     </ClCompile>
     <Link>
@@ -126,7 +125,6 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -221,7 +219,13 @@
     <ClCompile Include="20180628-luogu3385.cpp" />
     <ClCompile Include="20180628-luogu3386.cpp" />
     <ClCompile Include="20180628-luogu3387.cpp" />
+    <ClCompile Include="20180628-luogu3388.cpp" />
     <ClCompile Include="20180628-luogu3390.cpp" />
+    <ClCompile Include="20180629-luogu1144.cpp" />
+    <ClCompile Include="20180629-luogu1576.cpp" />
+    <ClCompile Include="20180629-luogu1828.cpp" />
+    <ClCompile Include="20180629-luogu3369.cpp" />
+    <ClCompile Include="20180629-luogu3377.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
