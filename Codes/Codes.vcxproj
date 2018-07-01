@@ -69,14 +69,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SFML-2.5.0-VS2017\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.5.0-VS2017\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.5.0-VS2017\include;C:\SFGUI-0.3.2-VS2017\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFML-2.5.0-VS2017\lib;C:\SFGUI-0.3.2-VS2017\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>
     </LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\SFML-2.5.0-VS2017\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.5.0-VS2017\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.5.0-VS2017\include;C:\SFGUI-0.3.2-VS2017\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFML-2.5.0-VS2017\lib;C:\SFGUI-0.3.2-VS2017\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>
     </LinkIncremental>
   </PropertyGroup>
@@ -92,9 +92,10 @@
       <MinimalRebuild>
       </MinimalRebuild>
       <CreateHotpatchableImage>true</CreateHotpatchableImage>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>
       </OptimizeReferences>
@@ -125,11 +126,14 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>
+      </EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
     <Manifest>
@@ -164,6 +168,11 @@
   <ItemGroup>
     <ClCompile Include="20171109-CodeGenerator.cpp" />
     <ClCompile Include="20180316-PiGraphics.cpp" />
+    <ClCompile Include="20180522-bnds0167.cpp" />
+    <ClCompile Include="20180522-bnds0168.cpp" />
+    <ClCompile Include="20180522-bnds0169.cpp" />
+    <ClCompile Include="20180522-bnds0171.cpp" />
+    <ClCompile Include="20180522-luogu3369.cpp" />
     <ClCompile Include="20180527-ImplFinder.cpp" />
     <ClCompile Include="20180605-bnds0175.cpp" />
     <ClCompile Include="20180605-luogu1091.cpp" />
@@ -221,11 +230,25 @@
     <ClCompile Include="20180628-luogu3387.cpp" />
     <ClCompile Include="20180628-luogu3388.cpp" />
     <ClCompile Include="20180628-luogu3390.cpp" />
+    <ClCompile Include="20180629-luogu1038.cpp" />
+    <ClCompile Include="20180629-luogu1137.cpp" />
     <ClCompile Include="20180629-luogu1144.cpp" />
     <ClCompile Include="20180629-luogu1576.cpp" />
+    <ClCompile Include="20180629-luogu1726.cpp" />
     <ClCompile Include="20180629-luogu1828.cpp" />
+    <ClCompile Include="20180629-luogu2047.cpp" />
+    <ClCompile Include="20180629-luogu2169.cpp" />
+    <ClCompile Include="20180629-luogu2832.cpp" />
     <ClCompile Include="20180629-luogu3369.cpp" />
     <ClCompile Include="20180629-luogu3377.cpp" />
+    <ClCompile Include="20180629-luogu4277.cpp" />
+    <ClCompile Include="20180630-luogu1345.cpp" />
+    <ClCompile Include="20180630-luogu1608.cpp" />
+    <ClCompile Include="20180630-luogu2002.cpp" />
+    <ClCompile Include="20180630-luogu2756.cpp" />
+    <ClCompile Include="20180630-luogu2814.cpp" />
+    <ClCompile Include="20180630-luogu3701.cpp" />
+    <ClCompile Include="20180630-luogu3931.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

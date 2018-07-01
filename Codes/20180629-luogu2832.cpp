@@ -1,21 +1,22 @@
 /*
-DOCUMENT NAME "20180629-luogu1144.cpp"
+DOCUMENT NAME "20180629-luogu2832.cpp"
 CREATION DATE 2018-06-29
-SIGNATURE CODE_20180629_LUOGU1144
-COMMENT
+SIGNATURE CODE_20180629_LUOGU2832
+COMMENT 行路难 / 魔改SPFA
 */
 
 #include "Overall.hpp"
 
 // Check if this code file is enabled for testing
-#ifdef CODE_20180629_LUOGU1144
+#ifdef CODE_20180629_LUOGU2832
 
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 const int infinity = 1e8;
-const int MaxN = 1000000 + 10, MaxM = 2000000 + 10, Mod = 100003;
+const int MaxN = 10000 + 10, MaxM = 200000 + 10;
 
 int read() {
 	char c;
@@ -49,83 +50,80 @@ private:
 };
 
 struct node {
-	int v;
+	int v, len;
 	node* next;
 };
 node mem[2 * MaxM], *h[MaxN];
 int top;
 node* allocate() { return &mem[++top]; }
 
-void addedge(int u, int v) {
+void addedge(int u, int v, int len) {
 	node* p = allocate();
 	p->v = v;
+	p->len = len;
 	p->next = h[u];
 	h[u] = p;
-	p = allocate();
-	p->v = u;
-	p->next = h[v];
-	h[v] = p;
 }
 
 int n, m;
 int u, v;
 
-queue<int> Q;
+struct que {
+	que() {}
+	que(int u, vector<int>& been) :u(u), been(&been) {}
+	int u;
+	vector<int>* been;
+};
+
+queue<que> Q;
 bool inQ[MaxN];
 int dis[MaxN];
-int ansS[MaxN];
+vector<int> ans[MaxN];
 void spfa() {
 	for (int i = 1; i <= n; i++)
 		dis[i] = infinity;
 	dis[1] = 0;
-	Q.push(1);
+	ans[1] = { 1 };
+	Q.push(que(1, ans[1]));
 	inQ[1] = true;
-	ansS[1] = 1;
 	while (!Q.empty()) {
-		int u = Q.front(), v;
+		que q = Q.front();
+		int u = q.u, v, len;
 		Q.pop(); inQ[u] = false;
 		for (node* p = h[u]; p != nullptr; p = p->next) {
-			v = p->v;
-			if (dis[v] > dis[u] + 1) {
-				dis[v] = dis[u] + 1;
-				ansS[v] = ansS[u] % Mod;
-				//if (!inQ[v]) {
-					//inQ[v] = true;
-				Q.push(v);
-			//}
+			v = p->v; len = p->len;
+			if (dis[v] > dis[u] + len + q.been->size() - 1) {
+				dis[v] = dis[u] + len + q.been->size() - 1;
+				ans[v] = *q.been;
+				ans[v].push_back(v);
+				if (!inQ[v]) {
+					inQ[v] = true;
+					Q.push(que(v, ans[v]));
+				}
 			}
-			else if (dis[v] == dis[u] + 1)
-				ansS[v] = (ansS[v] + ansS[u]) % Mod;
 		}
 	}
 }
 
-
-int ansD[MaxN];
-void dfs(int u) {
-	ansD[u]++;
-	for (node* p = h[u]; p != nullptr; p = p->next) {
-		int v = p->v;
-		if (dis[v] == dis[u] + 1)
-			dfs(v);
-	}
-}
-
-
 int main(int argc, char* argv[]) {
 
-	read(n); read(m);
+	cin >> n >> m;
 	for (int i = 1; i <= m; i++) {
-		read(u); read(v);
-		addedge(u, v);
+		int u, v, len;
+		cin >> u >> v >> len;
+		addedge(u, v, len);
 	}
 
 	spfa();
-	//dfs(1);
 
-	for (int i = 1; i <= n; i++) {
-		printf("%d\n", ansS[i]);
-	}
+	cout << dis[n] << endl;
+	for (int i = 0; i < ans[n].size(); i++)
+		if (i == 0)
+			cout << ans[n][i];
+		else
+			cout << " " << ans[n][i];
+	cout << endl;
+
 
 	return 0;
 }

@@ -15,6 +15,7 @@ TOPIC
 #include <thread>
 #include <mutex>
 #include <fstream>
+#include <random>
 
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
@@ -32,8 +33,28 @@ Image im;
 Texture text;
 mutex textlock;
 
-int total = 0, inrange = 0;
-vector<int> totals, inranges;
+long long total = 0, inrange = 0;
+vector<long long> totals, inranges;
+
+void threadPi(int id) {
+	minstd_rand0 engine((random_device())());
+	uniform_real_distribution<double> distribute(0.0, 1.0);
+	while (win.isOpen()) {
+
+		double xc = distribute(engine) * radius;
+		double yc = distribute(engine) * radius;
+
+		totals[id]++;
+		if (xc * xc + yc * yc <= 1048576.0)
+			inranges[id]++;
+
+		//textlock.lock();
+		im.setPixel(xc, yc, Color(255, 255, 255, 255));
+		//textlock.unlock();
+
+		//this_thread::yield();
+	}
+}
 
 int main(int argc, char* argv[]) {
 	srand(time(nullptr));
@@ -48,23 +69,6 @@ int main(int argc, char* argv[]) {
 	totals.resize(thread::hardware_concurrency(), 0);
 	inranges.resize(thread::hardware_concurrency(), 0);
 
-	auto threadPi = [&](int id) {
-		while (win.isOpen()) {
-			double xc = ((double)rand()*radius / (double)RAND_MAX);
-			double yc = ((double)rand()*radius / (double)RAND_MAX);
-
-			totals[id]++;
-			if (xc*xc + yc*yc <= 1048576.0)
-				inranges[id]++;
-
-			//textlock.lock();
-			im.setPixel(xc, yc, Color(255, 255, 255, 255));
-			//textlock.unlock();
-
-			this_thread::yield();
-		}
-	};
-
 	sfg::SFGUI sfgui;
 	sfg::Desktop desktop;
 
@@ -75,7 +79,7 @@ int main(int argc, char* argv[]) {
 	table->Attach(label2, UintRect(1, 0, 1, 1));
 	table->Attach(label3, UintRect(2, 0, 1, 1));
 	table->Attach(sfg::Label::Create(to_string(thread::hardware_concurrency()) + " Threads"),
-		UintRect(3, 0, 1, 1));
+				  UintRect(3, 0, 1, 1));
 
 	swin->SetRequisition(Vector2f(512.0f, 0.0f));
 	swin->Add(table);
@@ -107,7 +111,7 @@ int main(int argc, char* argv[]) {
 		label1->SetText("Steps: "s + to_string(total));
 		label2->SetText("InRange: "s + to_string(inrange));
 		label3->SetText("PiValue: "s + to_string((double)inrange / (double)total*4.0));
-		
+
 		desktop.Update(cl.restart().asSeconds());
 
 		win.clear();
