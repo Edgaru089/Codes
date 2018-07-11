@@ -23,32 +23,45 @@ using namespace sf;
 
 int main(int argc, char* argv[]) {
 
-	RenderWindow win;
+	//RenderWindow win;
 
-	win.create(VideoMode(1080, 608), "Title");
-	win.setVerticalSyncEnabled(true);
+	//win.create(VideoMode(1080, 608), "Title");
+	//win.setVerticalSyncEnabled(true);
 
-	ImGui::SFML::Init(win, true);
+	//ImGui::SFML::Init(win, true);
 
-	Clock cl;
+	//Clock cl;
 
-	while (win.isOpen()) {
-		Event e;
-		while (win.pollEvent(e)) {
-			if (e.type == Event::Closed)
-				win.close();
-			imgui::SFML::ProcessEvent(e);
-		}
+	//while (win.isOpen()) {
+	//	Event e;
+	//	while (win.pollEvent(e)) {
+	//		if (e.type == Event::Closed)
+	//			win.close();
+	//		imgui::SFML::ProcessEvent(e);
+	//	}
 
-		win.clear();
-		imgui::SFML::Update(win, cl.restart());
+	//	win.clear();
+	//	imgui::SFML::Update(win, cl.restart());
 
-		imgui::ShowDemoWindow();
+	//	imgui::ShowDemoWindow();
 
-		imgui::SFML::Render(win);
+	//	imgui::SFML::Render(win);
 
-		win.display();
-	}
+	//	win.display();
+	//}
+
+
+	char* ptr = new char;
+	int i_ptr;
+
+	i_ptr = ptr;
+	i_ptr = "String";
+
+	i_ptr = reinterpret_cast<int>("String");
+
+	cout << i_ptr << endl;
+	printf("0x%08x\n", i_ptr);
+	printf("%s\n", reinterpret_cast<char*>(i_ptr));
 
 	return 0;
 }

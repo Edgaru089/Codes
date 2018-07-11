@@ -88,11 +88,12 @@
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <MinimalRebuild>
       </MinimalRebuild>
       <CreateHotpatchableImage>true</CreateHotpatchableImage>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet />
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -121,7 +122,7 @@
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
@@ -168,87 +169,26 @@
   <ItemGroup>
     <ClCompile Include="20171109-CodeGenerator.cpp" />
     <ClCompile Include="20180316-PiGraphics.cpp" />
-    <ClCompile Include="20180522-bnds0167.cpp" />
-    <ClCompile Include="20180522-bnds0168.cpp" />
-    <ClCompile Include="20180522-bnds0169.cpp" />
-    <ClCompile Include="20180522-bnds0171.cpp" />
-    <ClCompile Include="20180522-luogu3369.cpp" />
     <ClCompile Include="20180527-ImplFinder.cpp" />
-    <ClCompile Include="20180605-bnds0175.cpp" />
-    <ClCompile Include="20180605-luogu1091.cpp" />
-    <ClCompile Include="20180605-luogu1280.cpp" />
-    <ClCompile Include="20180606-bnds0174.cpp" />
-    <ClCompile Include="20180611-bnds0607.cpp" />
-    <ClCompile Include="20180611-bnds0608.cpp" />
-    <ClCompile Include="20180611-bnds0609.cpp" />
-    <ClCompile Include="20180612-bnds0609.cpp" />
-    <ClCompile Include="20180613-bnds0172.cpp" />
-    <ClCompile Include="20180613-bnds0173.cpp" />
-    <ClCompile Include="20180613-bnds0174.cpp" />
-    <ClCompile Include="20180616-bnds0177.cpp" />
-    <ClCompile Include="20180616-bnds0178.cpp" />
-    <ClCompile Include="20180617-bnds0176.cpp" />
-    <ClCompile Include="20180617-luogu1071.cpp" />
-    <ClCompile Include="20180617-luogu1294.cpp" />
-    <ClCompile Include="20180617-luogu1855.cpp" />
-    <ClCompile Include="20180617-luogu1991.cpp" />
-    <ClCompile Include="20180618-bnds0006.cpp" />
-    <ClCompile Include="20180618-luogu1144.cpp" />
-    <ClCompile Include="20180618-luogu1462.cpp" />
-    <ClCompile Include="20180619-bnds0072.cpp" />
-    <ClCompile Include="20180619-bnds0073.cpp" />
-    <ClCompile Include="20180619-bnds0074.cpp" />
-    <ClCompile Include="20180619-bnds0077.cpp" />
-    <ClCompile Include="20180619-bnds0080.cpp" />
-    <ClCompile Include="20180619-bnds0081.cpp" />
-    <ClCompile Include="20180619-bnds0085.cpp" />
-    <ClCompile Include="20180619-bnds0090.cpp" />
-    <ClCompile Include="20180619-bnds0093.cpp" />
-    <ClCompile Include="20180619-bnds0094.cpp" />
-    <ClCompile Include="20180619-bnds0095.cpp" />
-    <ClCompile Include="20180619-bnds0096.cpp" />
-    <ClCompile Include="20180619-bnds0100.cpp" />
-    <ClCompile Include="20180620-luogu1600.cpp" />
-    <ClCompile Include="20180620-luogu3379.cpp" />
-    <ClCompile Include="20180621-luogu2822.cpp" />
-    <ClCompile Include="20180621-luogu3958.cpp" />
-    <ClCompile Include="20180622-luogu3372.cpp" />
-    <ClCompile Include="20180622-luogu3384.cpp" />
-    <ClCompile Include="20180623-luogu3834.cpp" />
-    <ClCompile Include="20180624-luogu3919.cpp" />
-    <ClCompile Include="20180625-bnds0614.cpp" />
-    <ClCompile Include="20180625-bnds0615.cpp" />
-    <ClCompile Include="20180625-bnds0616.cpp" />
-    <ClCompile Include="20180626-bnds0614.cpp" />
-    <ClCompile Include="20180626-bnds0615.cpp" />
     <ClCompile Include="20180626-CodeGenerator-ImGui.cpp" />
-    <ClCompile Include="20180627-bnds0616.cpp" />
-    <ClCompile Include="20180628-luogu1939.cpp" />
-    <ClCompile Include="20180628-luogu3376.cpp" />
-    <ClCompile Include="20180628-luogu3385.cpp" />
-    <ClCompile Include="20180628-luogu3386.cpp" />
-    <ClCompile Include="20180628-luogu3387.cpp" />
-    <ClCompile Include="20180628-luogu3388.cpp" />
-    <ClCompile Include="20180628-luogu3390.cpp" />
-    <ClCompile Include="20180629-luogu1038.cpp" />
-    <ClCompile Include="20180629-luogu1137.cpp" />
-    <ClCompile Include="20180629-luogu1144.cpp" />
-    <ClCompile Include="20180629-luogu1576.cpp" />
-    <ClCompile Include="20180629-luogu1726.cpp" />
-    <ClCompile Include="20180629-luogu1828.cpp" />
-    <ClCompile Include="20180629-luogu2047.cpp" />
-    <ClCompile Include="20180629-luogu2169.cpp" />
-    <ClCompile Include="20180629-luogu2832.cpp" />
-    <ClCompile Include="20180629-luogu3369.cpp" />
-    <ClCompile Include="20180629-luogu3377.cpp" />
-    <ClCompile Include="20180629-luogu4277.cpp" />
-    <ClCompile Include="20180630-luogu1345.cpp" />
-    <ClCompile Include="20180630-luogu1608.cpp" />
-    <ClCompile Include="20180630-luogu2002.cpp" />
-    <ClCompile Include="20180630-luogu2756.cpp" />
-    <ClCompile Include="20180630-luogu2814.cpp" />
-    <ClCompile Include="20180630-luogu3701.cpp" />
-    <ClCompile Include="20180630-luogu3931.cpp" />
+    <ClCompile Include="20180701-luogu3369.cpp" />
+    <ClCompile Include="20180701-luogu3381.cpp" />
+    <ClCompile Include="20180701-luogu3384.cpp" />
+    <ClCompile Include="20180702-luogu1231.cpp" />
+    <ClCompile Include="20180702-luogu2055.cpp" />
+    <ClCompile Include="20180702-luogu2146.cpp" />
+    <ClCompile Include="20180702-luogu4016.cpp" />
+    <ClCompile Include="20180704-luogu3369.cpp" />
+    <ClCompile Include="20180704-luogu3379.cpp" />
+    <ClCompile Include="20180704-luogu3391.cpp" />
+    <ClCompile Include="20180705-luogu1967.cpp" />
+    <ClCompile Include="20180706-CF10004C.cpp" />
+    <ClCompile Include="20180706-CF1004A.cpp" />
+    <ClCompile Include="20180708-luogu3373.cpp" />
+    <ClCompile Include="20180708-luogu3379.cpp" />
+    <ClCompile Include="20180710-luogu1967.cpp" />
+    <ClCompile Include="20180711-luogu1197.cpp" />
+    <ClCompile Include="20180711-luogu3387.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

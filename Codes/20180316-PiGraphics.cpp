@@ -49,10 +49,10 @@ void threadPi(int id) {
 			inranges[id]++;
 
 		//textlock.lock();
-		im.setPixel(xc, yc, Color(255, 255, 255, 255));
+		im.setPixel(xc, yc, im.getPixel(xc, yc) + Color(128, 128, 128, 255));
 		//textlock.unlock();
 
-		//this_thread::yield();
+		this_thread::yield();
 	}
 }
 
