@@ -19,7 +19,7 @@ using namespace std;
 typedef long long ll;
 
 const int infinity = 1e8;
-const int MaxS = 100000 + 10;
+const ll MaxS = 100000 + 10;
 const ll MaxM = MaxS * MaxS + 10;
 
 struct node {

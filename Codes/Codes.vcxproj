@@ -135,7 +135,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -198,10 +198,39 @@
     <ClCompile Include="20180713-bnds0133.cpp" />
     <ClCompile Include="20180713-bnds0557.cpp" />
     <ClCompile Include="20180714-poj1475.cpp" />
+    <ClCompile Include="20180715-bnds0322.cpp" />
+    <ClCompile Include="20180715-bnds0325.cpp" />
+    <ClCompile Include="20180715-bnds0326.cpp" />
+    <ClCompile Include="20180715-bnds0328.cpp" />
     <ClCompile Include="20180715-bnds0722-after.cpp" />
     <ClCompile Include="20180715-bnds0722.cpp" />
     <ClCompile Include="20180715-bnds0721-test-0.cpp" />
     <ClCompile Include="20180715-bnds0723-test.cpp" />
+    <ClCompile Include="20180716-bnds0197.cpp" />
+    <ClCompile Include="20180716-bnds0200.cpp" />
+    <ClCompile Include="20180716-bnds0327.cpp" />
+    <ClCompile Include="20180716-bnds0719.cpp" />
+    <ClCompile Include="20180716-luogu3371.cpp" />
+    <ClCompile Include="20180716-luoguU30363.cpp" />
+    <ClCompile Include="20180717-luogu3401.cpp" />
+    <ClCompile Include="20180717-luogu3701.cpp" />
+    <ClCompile Include="20180717-luogu4752.cpp" />
+    <ClCompile Include="20180717-luogu4754.cpp" />
+    <ClCompile Include="20180718-bnds0613.cpp" />
+    <ClCompile Include="20180718-luogu1113.cpp" />
+    <ClCompile Include="20180718-noi2018-return.cpp" />
+    <ClCompile Include="20180719-luogu2005.cpp" />
+    <ClCompile Include="20180719-luogu2341.cpp" />
+    <ClCompile Include="20180720-luogu2482.cpp" />
+    <ClCompile Include="20180720-luogu2786.cpp" />
+    <ClCompile Include="20180720-luogu3203.cpp" />
+    <ClCompile Include="20180721-luogu1073.cpp" />
+    <ClCompile Include="20180721-luogu3241.cpp" />
+    <ClCompile Include="20180722-luogu1608.cpp" />
+    <ClCompile Include="20180722-luogu1875.cpp" />
+    <ClCompile Include="20180722-luogu2763.cpp" />
+    <ClCompile Include="20180722-luogu3376.cpp" />
+    <ClCompile Include="20180722-uoj0009.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

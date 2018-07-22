@@ -1,14 +1,14 @@
 /*
-DOCUMENT NAME "20180713-bnds0557.cpp"
-CREATION DATE 2018-07-13
-SIGNATURE CODE_20180713_BNDS0557
-COMMENT 高精度除法（高精除高精）
+DOCUMENT NAME "20180719-luogu2005.cpp"
+CREATION DATE 2018-07-19
+SIGNATURE CODE_20180719_LUOGU2005
+COMMENT A/B Problem II
 */
 
 #include "Overall.hpp"
 
 // Check if this code file is enabled for testing
-#ifdef CODE_20180713_BNDS0557
+#ifdef CODE_20180719_LUOGU2005
 
 #include <cstdlib>
 #include <iostream>
@@ -116,8 +116,6 @@ int main(int argc, char* argv[]) {
 	divide();
 
 	output(result, resultlen);
-	cout << endl;
-	output(d1, high1);
 	cout << endl;
 
 	return 0;

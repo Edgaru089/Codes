@@ -16,7 +16,8 @@ TOPIC
 #include <vector>
 
 #include <SFML/Window/Clipboard.hpp>
-#include "20171109-CodeSubmit.h"
+
+#include <Windows.h>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ const string replaceAll(string source, string from, string to) {
 	string str = "";
 	for (int i = 0; i < source.size() - from.size(); i++) {
 		if (source.substr(i, from.size()) == from) {
-			i += from.size()-1;
+			i += from.size() - 1;
 			str += to;
 		}
 		else
@@ -71,6 +72,12 @@ string mergeString() {
 			ans += "\r\n";
 		}
 	return ans;
+}
+
+sf::String convert(string str) {
+	wchar_t wstr[32 * 1024];
+	wstr[MultiByteToWideChar(936, 0, str.c_str(), str.size(), wstr, 32 * 1024)] = '\0';
+	return sf::String(wstr);
 }
 
 int main(int argc, char* argv[]) {
@@ -116,12 +123,12 @@ int main(int argc, char* argv[]) {
 	cout << replaceAll(result, "\r\n", "\n") << endl << " +------------------ End Code ------------------+" << endl;
 
 	// Copy to clipboard
-	sf::Clipboard::setString(sf::String(result));
+	sf::Clipboard::setString(convert(result));
 	cout << "    Copied to clipboard." << endl;
 
 	// Output to a new file if nesscerry
 	if (argc >= 3) {
-		if ((ofstream(argv[2]) << result << flush).good())
+		if ((ofstream(argv[2]) << replaceAll(result, "\r\n", "\n") << flush).good())
 			cout << "    Outputed to file: \"" << argv[2] << "\"" << endl;
 		else
 			cout << "File output failed: \"" << argv[2] << "\"" << endl;
