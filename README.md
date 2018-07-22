@@ -4,7 +4,7 @@ Code backlog for my daily OI work
 
 You may fail to find this repo interesting
 
-## 神明们所眷顾的 Visual Studio / 神々が恋したビジュアルスタジオ
+## 神明们所眷恋的 Visual Studio / 神々が恋したビジュアルスタジオ
 
 如何在~~宇宙第一强的~~VS下编译运行调试OI程序？
 
