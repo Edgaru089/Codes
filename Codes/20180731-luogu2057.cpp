@@ -1,14 +1,14 @@
 /*
-DOCUMENT NAME "20180722-luogu3376.cpp"
-CREATION DATE 2018-07-22
-SIGNATURE CODE_20180722_LUOGU3376
-COMMENT 【模板】网络最大流
+DOCUMENT NAME "20180731-luogu2057.cpp"
+CREATION DATE 2018-07-31
+SIGNATURE CODE_20180731_LUOGU2057
+COMMENT [SHOI2007]善意的投票
 */
 
 #include "Overall.hpp"
 
 // Check if this code file is enabled for testing
-#ifdef CODE_20180722_LUOGU3376
+#ifdef CODE_20180731_LUOGU2057
 
 #include <cstdlib>
 #include <iostream>
@@ -21,18 +21,19 @@ constexpr int MaxN = 10000 + 10, MaxM = 100000 + 10;
 template<typename IntType = int>
 IntType read() {
 	IntType val = 0;
-	char c;
+	int c;
 	while (!isdigit(c = getchar()));
 	do {
 		val = (val << 1) + (val << 3) + c - '0';
 	} while (isdigit(c = getchar()));
+	ungetc(c, stdin);
 	return val;
 }
-template<typename IntType>
-void read(IntType& val) { val = read<IntType>(); }
-template<typename IntType, typename... Args>
-void read(IntType& val, Args&... args) { val = read<IntType>(); read(args...); }
 
+template<typename IntType>
+void read(IntType& x) { x = read<IntType>(); }
+template<typename IntType, typename... Args>
+void read(IntType& x, Args&... args) { x = read<IntType>(); read(args...); }
 
 int n, m;
 int s, t;
@@ -87,14 +88,11 @@ bool bfs() {
 		return true;
 }
 
-
-node* cur[MaxN];
-
 int dfs(int u, int limit) {
 	if (u == t || limit == 0)
 		return limit;
 	int val = 0;
-	for (node*& p = cur[u]; p != nullptr; p = p->next) {
+	for (node* p = h[u]; p != nullptr&&limit > 0; p = p->next) {
 		int v = p->v, f;
 		int& flow = p->flow;
 		if (dis[v] == dis[u] + 1 && (f = dfs(v, min(limit, flow))) != 0) {
@@ -103,30 +101,35 @@ int dfs(int u, int limit) {
 			limit -= f;
 			val += f;
 		}
-		if (limit <= 0)
-			break;
 	}
 	return val;
 }
 
 int dinic() {
 	int ans = 0;
-	while (bfs()) {
-		for (int i = 1; i <= n; i++)
-			cur[i] = h[i];
+	while (bfs())
 		ans += dfs(s, infinity);
-	}
 	return ans;
 }
 
+int n0, m0;
+int u, v;
 
 int main(int argc, char* argv[]) {
 
-	read(n, m, s, t);
-	for (int i = 1; i <= m; i++) {
-		int u, v, f;
-		read(u, v, f);
-		addedge(u, v, f);
+	read(n0, m0);
+	s = n0 + 1;
+	t = n0 + 2;
+	n = n0 + 2;
+	for (int i = 1; i <= n0; i++)
+		if (read() == 1)
+			addedge(s, i, 1);
+		else
+			addedge(i, t, 1);
+	for (int i = 1; i <= m0; i++) {
+		read(u, v);
+		addedge(u, v, 1);
+		addedge(v, u, 1);
 	}
 
 	printf("%d\n", dinic());

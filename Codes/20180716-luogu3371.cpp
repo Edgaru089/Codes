@@ -16,7 +16,7 @@ COMMENT 【模板】单源最短路径 / 堆优化Dijstra
 using namespace std;
 
 const int infinity = 2147483647;
-const int MaxN = 10000 + 10, MaxM = 500000 + 10;
+const int MaxN = 100000 + 10, MaxM = 500000 + 10;
 
 template<typename IntType = int>
 IntType read() {
@@ -57,26 +57,25 @@ void addedge(int u, int v, int len) {
 
 namespace dijstra {
 	typedef pair<int, int> pii;
-	int anscnt;
 	priority_queue<pii, vector<pii>, greater<pii>> Q;
+	bool been[MaxN];
 	void run() {
 		for (int i = 1; i <= n; i++)
 			dis[i] = infinity;
 		Q.push(make_pair(0, s));
 		dis[s] = 0;
-		anscnt++;
-		while (!Q.empty() && anscnt < n) {
+		while (!Q.empty()) {
 			pii t = Q.top(); Q.pop();
 			int u = t.second, d = t.first;
-			if (u != s && dis[u] == 2147483647) {
-				dis[u] = d;
-				anscnt++;
-			}
-			else if (dis[u] < d)
+			if (been[u])
 				continue;
+			been[u] = true;
 			for (node* p = h[u]; p != nullptr; p = p->next) {
 				int v = p->v, len = p->len;
-				Q.push(make_pair(d + len, v));
+				if (dis[v] > dis[u] + len) {
+					dis[v] = dis[u] + len;
+					Q.push(make_pair(d + len, v));
+				}
 			}
 		}
 	}
@@ -117,8 +116,8 @@ int main(int argc, char* argv[]) {
 		addedge(u, v, l);
 	}
 
-	//dijstra::run();
-	spfa::run();
+	dijstra::run();
+	//spfa::run();
 
 	for (int i = 1; i <= n; i++) {
 		if (i != 1)

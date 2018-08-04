@@ -1,18 +1,19 @@
 /*
-DOCUMENT NAME "20180722-luogu3376.cpp"
-CREATION DATE 2018-07-22
-SIGNATURE CODE_20180722_LUOGU3376
-COMMENT 【模板】网络最大流
+DOCUMENT NAME "20180725-luogu2936.cpp"
+CREATION DATE 2018-07-25
+SIGNATURE CODE_20180725_LUOGU2936
+COMMENT [USACO09JAN]全流Total Flow
 */
 
 #include "Overall.hpp"
 
 // Check if this code file is enabled for testing
-#ifdef CODE_20180722_LUOGU3376
+#ifdef CODE_20180725_LUOGU2936
 
 #include <cstdlib>
 #include <iostream>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 constexpr int infinity = 1e8;
@@ -28,10 +29,17 @@ IntType read() {
 	} while (isdigit(c = getchar()));
 	return val;
 }
+template<>
+char read<char>() {
+	char c;
+	while (iscntrl(c = getchar()) || isblank(c));
+	return c;
+}
 template<typename IntType>
 void read(IntType& val) { val = read<IntType>(); }
 template<typename IntType, typename... Args>
 void read(IntType& val, Args&... args) { val = read<IntType>(); read(args...); }
+
 
 
 int n, m;
@@ -87,14 +95,11 @@ bool bfs() {
 		return true;
 }
 
-
-node* cur[MaxN];
-
 int dfs(int u, int limit) {
 	if (u == t || limit == 0)
 		return limit;
 	int val = 0;
-	for (node*& p = cur[u]; p != nullptr; p = p->next) {
+	for (node* p = h[u]; p != nullptr&&limit > 0; p = p->next) {
 		int v = p->v, f;
 		int& flow = p->flow;
 		if (dis[v] == dis[u] + 1 && (f = dfs(v, min(limit, flow))) != 0) {
@@ -103,34 +108,40 @@ int dfs(int u, int limit) {
 			limit -= f;
 			val += f;
 		}
-		if (limit <= 0)
-			break;
 	}
 	return val;
 }
 
 int dinic() {
 	int ans = 0;
-	while (bfs()) {
-		for (int i = 1; i <= n; i++)
-			cur[i] = h[i];
+	while (bfs())
 		ans += dfs(s, infinity);
-	}
 	return ans;
 }
 
 
+int getid(char c) {
+	if (isupper(c))
+		return c - 'A' + 1;
+	else if (islower(c))
+		return 26 + c - 'a' + 1;
+	else
+		return 0;
+}
+
 int main(int argc, char* argv[]) {
 
-	read(n, m, s, t);
+	read(m);
+	n = 26 * 2;
+	char c1,c2;
+	int x;
 	for (int i = 1; i <= m; i++) {
-		int u, v, f;
-		read(u, v, f);
-		addedge(u, v, f);
+		read(c1, c2, x);
+		addedge(getid(c1), getid(c2), x);
 	}
-
+	s = getid('A');
+	t = getid('Z');
 	printf("%d\n", dinic());
-
 	return 0;
 }
 

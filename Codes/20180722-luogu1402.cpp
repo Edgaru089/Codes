@@ -1,20 +1,22 @@
 /*
-DOCUMENT NAME "20180722-luogu3376.cpp"
+DOCUMENT NAME "20180722-luogu1402.cpp"
 CREATION DATE 2018-07-22
-SIGNATURE CODE_20180722_LUOGU3376
-COMMENT 【模板】网络最大流
+SIGNATURE CODE_20180722_LUOGU1402
+COMMENT 酒店之王
 */
 
 #include "Overall.hpp"
 
 // Check if this code file is enabled for testing
-#ifdef CODE_20180722_LUOGU3376
+#ifdef CODE_20180722_LUOGU1402
 
 #include <cstdlib>
 #include <iostream>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
+#pragma region Dinic
 constexpr int infinity = 1e8;
 constexpr int MaxN = 10000 + 10, MaxM = 100000 + 10;
 
@@ -87,14 +89,11 @@ bool bfs() {
 		return true;
 }
 
-
-node* cur[MaxN];
-
 int dfs(int u, int limit) {
 	if (u == t || limit == 0)
 		return limit;
 	int val = 0;
-	for (node*& p = cur[u]; p != nullptr; p = p->next) {
+	for (node* p = h[u]; p != nullptr&&limit > 0; p = p->next) {
 		int v = p->v, f;
 		int& flow = p->flow;
 		if (dis[v] == dis[u] + 1 && (f = dfs(v, min(limit, flow))) != 0) {
@@ -103,30 +102,54 @@ int dfs(int u, int limit) {
 			limit -= f;
 			val += f;
 		}
-		if (limit <= 0)
-			break;
 	}
 	return val;
 }
 
 int dinic() {
 	int ans = 0;
-	while (bfs()) {
-		for (int i = 1; i <= n; i++)
-			cur[i] = h[i];
+	while (bfs())
 		ans += dfs(s, infinity);
-	}
 	return ans;
 }
+#pragma endregion
+
+
+int n0, p, q;
+
+int inpntid(int id) { return id; }
+int outpntid(int id) { return n0 + id; }
+int roompntid(int roomid) { return roomid + 2 * n0; }
+int dishpntid(int dishid) { return dishid + 2 * n0 + p; }
 
 
 int main(int argc, char* argv[]) {
 
-	read(n, m, s, t);
-	for (int i = 1; i <= m; i++) {
-		int u, v, f;
-		read(u, v, f);
-		addedge(u, v, f);
+	read(n0, p, q);
+	n = 2 * n0 + p + q + 2;
+	s = 2 * n0 + p + q + 1;
+	t = 2 * n0 + p + q + 2;
+	for (int i = 1; i <= p; i++)
+		addedge(s, roompntid(i), 1);
+	for (int i = 1; i <= q; i++)
+		addedge(dishpntid(i), t, 1);
+	for (int i = 1; i <= n0; i++)
+		addedge(inpntid(i), outpntid(i), 1);
+	for (int i = 1; i <= n0; i++) {
+		for (int j = 1; j <= p; j++) {
+			int x;
+			read(x);
+			if (x == 1)
+				addedge(roompntid(j), inpntid(i), 1);
+		}
+	}
+	for (int i = 1; i <= n0; i++) {
+		for (int j = 1; j <= q; j++) {
+			int x;
+			read(x);
+			if (x == 1)
+				addedge(outpntid(i), dishpntid(j), 1);
+		}
 	}
 
 	printf("%d\n", dinic());
