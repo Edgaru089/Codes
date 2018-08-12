@@ -96,7 +96,7 @@
       <EnableEnhancedInstructionSet />
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;winmm.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>
       </OptimizeReferences>
@@ -119,7 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -130,12 +130,16 @@
       <EnableEnhancedInstructionSet>
       </EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;winmm.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;sfgui.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AssemblyDebug>false</AssemblyDebug>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -267,6 +271,31 @@
     <ClCompile Include="20180803-luoguT39604.cpp" />
     <ClCompile Include="20180803-luoguU34195.cpp" />
     <ClCompile Include="20180804-luogu3807.cpp" />
+    <ClCompile Include="20180805-luogu3178.cpp" />
+    <ClCompile Include="20180806-assembly-int.cpp" />
+    <ClCompile Include="20180806-luogu1024.cpp" />
+    <ClCompile Include="20180806-uoj098.cpp" />
+    <ClCompile Include="20180807-bnds0292.cpp" />
+    <ClCompile Include="20180807-bnds0736.cpp" />
+    <ClCompile Include="20180808-bnds0164.cpp" />
+    <ClCompile Include="20180808-bnds0445.cpp" />
+    <ClCompile Include="20180808-bnds0743.cpp" />
+    <ClCompile Include="20180808-bnds0745.cpp" />
+    <ClCompile Include="20180808-bnds0744.cpp" />
+    <ClCompile Include="20180809-bnds0735.cpp" />
+    <ClCompile Include="20180810-bnds0228.cpp" />
+    <ClCompile Include="20180810-bnds0747.cpp" />
+    <ClCompile Include="20180810-luogu3808.cpp" />
+    <ClCompile Include="20180811-bnds0222.cpp" />
+    <ClCompile Include="20180811-bnds0747.cpp" />
+    <ClCompile Include="20180811-bnds0756.cpp" />
+    <ClCompile Include="20180811-ktx65-datagen.cpp" />
+    <ClCompile Include="20180811-ktx65-std.cpp" />
+    <ClCompile Include="20180811-luoguU34065.cpp" />
+    <ClCompile Include="20180812-bnds0758.cpp" />
+    <ClCompile Include="20180812-bnds0759.cpp" />
+    <ClCompile Include="20180812-bnds0760-2.cpp" />
+    <ClCompile Include="20180812-bnds0760.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
