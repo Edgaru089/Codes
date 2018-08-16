@@ -296,6 +296,16 @@
     <ClCompile Include="20180812-bnds0759.cpp" />
     <ClCompile Include="20180812-bnds0760-2.cpp" />
     <ClCompile Include="20180812-bnds0760.cpp" />
+    <ClCompile Include="20180813-bnds0767.cpp" />
+    <ClCompile Include="20180813-bnds0769.cpp" />
+    <ClCompile Include="20180813-luogu3796.cpp" />
+    <ClCompile Include="20180814-bnds0760.cpp" />
+    <ClCompile Include="20180815-bnds0778.cpp" />
+    <ClCompile Include="20180815-bnds0780.cpp" />
+    <ClCompile Include="20180815-bnds779.cpp" />
+    <ClCompile Include="20180816-bnds0769.cpp" />
+    <ClCompile Include="20180816-bnds0782.cpp" />
+    <ClCompile Include="20180816-FilePacker.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
