@@ -168,6 +168,8 @@ int main(int argc, char* argv[]) {
 	string liststr = ostr.str();
 
 	ofstream fout(outputFile, ofstream::binary);
+	// hello!
+	fout.write("Edgaru089 Package! 0=w=0", 24);
 	// output list size (8-byte) in little-endian
 	Uint64 listlen = liststr.size();
 	for (int i = 0; i < 8; i++) {

@@ -41,28 +41,16 @@ void convertUtf8To936(string& str) {
 
 int main(int argc, char* argv[]) {
 
-	string str;
-	string str0;
-	int cnt = 0;
-	while (!getline(cin, str).eof()) {
-		if (atoi(str.c_str()) >= 3)
-			cnt++;
-		if (cnt == 287) {
-			str0 = str;
-			break;
-		}
+	bool prime[10001] = {};
+	memset(prime, true, sizeof(prime));
+	for (int i = 2; i <= 10000; i++) {
+		if (prime[i])
+			for (int j = i + i; j <= 10000; j += i)
+				prime[j] = false;
 	}
-
-	cout << endl << str0 << endl;
-
-
-	int dis[MaxN][MaxN];
-	for (int k = 1; k <= n; k++)
-		for (int i = 1; i <= n; i++)
-			for (int j = 1; j <= n; j++)
-				if (dis[i][j] > dis[i][k] + dis[k][j])
-					dis[i][j] = dis[i][k] + dis[k][j];
-
+	for (int i = 2; i <= 10000; i++)
+		if (prime[i])
+			cout << i << ',';
 
 
 	win.create(VideoMode(1080, 608), "ImGui Snippet");

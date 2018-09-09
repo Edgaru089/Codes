@@ -9,7 +9,7 @@
 #define wxUSE_ANY 1
 
 ///////////////////////// Define currently tested code file /////////////////////////
-#define CODE_20180828_BNDS0809
+#define CODE_20180909_NOW172A
 
 
 // Inform the Nvidia/AMD driver that this SFML application could

@@ -52,6 +52,8 @@ void read(IntType& x) { x = read<IntType>(); }
 template<typename IntType, typename... Args>
 void read(IntType& x, Args&... args) { x = read<IntType>(); read(args...); }
 
+int iabs(int x) { return x > 0 ? x : -x; }
+
 int n, xt, yt;
 int x[MaxN], y[MaxN];
 int sx, sy, tx, ty;
@@ -76,23 +78,44 @@ void setbounds(int bounds) {
 			flag[i][j] = true;
 			been[i][j] = false;
 		}
-	for (int i = 1; i <= n; i++) {
-		flag[x[i]][y[i]] = false;
-		for (int j = 1; j <= bounds - 1; j++) {
-			if (x[i] + j < xt)
-				flag[x[i] + j][y[i]] = false;
-			if (x[i] - j >= 0)
-				flag[x[i] - j][y[i]] = false;
-			if (y[i] + j < yt)
-				flag[x[i]][y[i] + j] = false;
-			if (y[i] - j >= 0)
-				flag[x[i]][y[i] - j] = false;
+	if (bounds > 0)
+		for (int i = 1; i <= n; i++) {
+			flag[x[i]][y[i]] = false;
+			for (int j = 1; j <= bounds - 1; j++) {
+				if (x[i] + j < xt)
+					flag[x[i] + j][y[i]] = false;
+				if (x[i] - j >= 0)
+					flag[x[i] - j][y[i]] = false;
+				if (y[i] + j < yt)
+					flag[x[i]][y[i] + j] = false;
+				if (y[i] - j >= 0)
+					flag[x[i]][y[i] - j] = false;
+			}
 		}
-	}
 }
 
 bool check(int bounds) {
-	setbounds(bounds);
+	for (int i = 0; i < xt; i++)
+		for (int j = 0; j < yt; j++) {
+			flag[i][j] = true;
+			been[i][j] = false;
+		}
+	if (bounds > 0)
+		for (int i = 1; i <= n; i++) {
+			if (iabs(sx - x[i]) + iabs(sy - y[i]) < bounds)
+				return false;
+			flag[x[i]][y[i]] = false;
+			for (int j = 1; j <= bounds - 1; j++) {
+				if (x[i] + j < xt)
+					flag[x[i] + j][y[i]] = false;
+				if (x[i] - j >= 0)
+					flag[x[i] - j][y[i]] = false;
+				if (y[i] + j < yt)
+					flag[x[i]][y[i] + j] = false;
+				if (y[i] - j >= 0)
+					flag[x[i]][y[i] - j] = false;
+			}
+		}
 
 	dfs(sx, sy);
 	return been[tx][ty];
