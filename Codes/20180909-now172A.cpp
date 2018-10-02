@@ -50,7 +50,7 @@ struct node {
 };
 
 node* root[MaxN];
-node mem[5 * MaxN], *memtop = mem;
+node mem[42666666], *memtop = mem;
 #define ALLOCATE (++memtop)
 
 void build(int left = 1, int right = n, node*& p = root[0]) {

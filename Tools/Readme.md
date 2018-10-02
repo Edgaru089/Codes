@@ -6,6 +6,8 @@ CodeGenImGui.exe 是一个根据输入的文件信息自动生成文件名、宏
 
 CodeSubmit.exe 是一个自动把生成的代码中奇怪的东西去掉，使之可以提交，并复制到剪贴板的工具。
 
+CodeSignatureToggle.exe 是一个自动按照代码签名修改 Overall.hpp 的工具。
+
 在命令行下运行这些工具都会出现各自的说明啦
 
 一般来说我是这样配置的：

@@ -88,7 +88,7 @@
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MinimalRebuild>
       </MinimalRebuild>
       <CreateHotpatchableImage>true</CreateHotpatchableImage>
@@ -336,8 +336,35 @@
     <ClCompile Include="20180906-now185B.cpp" />
     <ClCompile Include="20180907-FileClient.cpp" />
     <ClCompile Include="20180907-luogu3953.cpp" />
+    <ClCompile Include="20180909-CodeSignatureToggle.cpp" />
+    <ClCompile Include="20180909-luogu3690.cpp" />
+    <ClCompile Include="20180909-now172A-.cpp" />
     <ClCompile Include="20180909-now172A.cpp" />
     <ClCompile Include="20180909-now172B.cpp" />
+    <ClCompile Include="20180911-luogu3376-.cpp" />
+    <ClCompile Include="20180911-luogu3376.cpp" />
+    <ClCompile Include="20180914-luogu2147.cpp" />
+    <ClCompile Include="20180914-luogu2590.cpp" />
+    <ClCompile Include="20180914-luogu3178.cpp" />
+    <ClCompile Include="20180916-now173A.cpp" />
+    <ClCompile Include="20180916-now173B.cpp" />
+    <ClCompile Include="20180916-now173C.cpp" />
+    <ClCompile Include="20180918-luogu2822.cpp" />
+    <ClCompile Include="20180918-luogu2827.cpp" />
+    <ClCompile Include="20180919-luogu2486.cpp" />
+    <ClCompile Include="20180920-bnds0752.cpp" />
+    <ClCompile Include="20180920-bnds0774.cpp" />
+    <ClCompile Include="20180923-bnds0193.cpp" />
+    <ClCompile Include="20180923-bnds0337.cpp" />
+    <ClCompile Include="20180923-now174B.cpp" />
+    <ClCompile Include="20180924-luogu3953.cpp" />
+    <ClCompile Include="20180925-luogu3959-.cpp" />
+    <ClCompile Include="20180925-luogu3959.cpp" />
+    <ClCompile Include="20180926-bnds0769.cpp" />
+    <ClCompile Include="20180926-bnds0770.cpp" />
+    <ClCompile Include="20181001-luogu0228.cpp" />
+    <ClCompile Include="20181002-bnds0777.cpp" />
+    <ClCompile Include="20181002-bndsoj0454.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

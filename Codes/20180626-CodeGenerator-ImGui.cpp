@@ -57,14 +57,14 @@ const float getHighDpiScaleFactor() {
 	DPI_AWARENESS dpiAwareness = GetAwarenessFromDpiAwarenessContext(GetThreadDpiAwarenessContext());
 	switch (dpiAwareness) {
 		// Scale the window to the system DPI
-	case DPI_AWARENESS_SYSTEM_AWARE:
-		dpi = GetDpiForSystem();
-		break;
+		case DPI_AWARENESS_SYSTEM_AWARE:
+			dpi = GetDpiForSystem();
+			break;
 
-		// Scale the window to the monitor DPI
-	case DPI_AWARENESS_PER_MONITOR_AWARE:
-		dpi = GetDpiForWindow(win.getSystemHandle());
-		break;
+			// Scale the window to the monitor DPI
+		case DPI_AWARENESS_PER_MONITOR_AWARE:
+			dpi = GetDpiForWindow(win.getSystemHandle());
+			break;
 	}
 
 	return dpi / 96.0f;
@@ -72,7 +72,7 @@ const float getHighDpiScaleFactor() {
 
 void processFileName(char* buf) {
 	for (int i = 0; buf[i] != '\0'; i++) {
-		if (!isalnum(buf[i]) && buf[i] != '.') {
+		if (buf[i] < 0 || buf[i] > 127 || (!isalnum(buf[i]) && buf[i] != '.')) {
 			buf[i] = '-';
 		}
 	}
@@ -80,7 +80,7 @@ void processFileName(char* buf) {
 
 void processFileCode(char* buf) {
 	for (int i = 0; buf[i] != '\0'; i++) {
-		if (isalnum(buf[i])) {
+		if ((buf[i] >= 0 && buf[i] <= 127) && isalnum(buf[i])) {
 			if (isalpha(buf[i]))
 				buf[i] = toupper(buf[i]);
 		}
@@ -125,7 +125,7 @@ int main(int argc, char* argv[]) {
 	style.FrameBorderSize = 1.0f;
 	style.ScrollbarRounding = 0.0f;
 	style.WindowRounding = 0.0f;
-	
+
 	//imgui::GetIO().MouseDrawCursor = true;
 
 	win.create(VideoMode(450 * factor, 650 * factor), "Code Generator In ImGui", Style::Titlebar | Style::Close);
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 	while (win.isOpen()) {
 		if (loading) {
 			imgui::GetIO().Fonts->Clear();
-			imgui::GetIO().Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\msyh.ttc)", 18, nullptr, imgui::GetIO().Fonts->GetGlyphRangesChinese());
+			imgui::GetIO().Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\msyh.ttc)", 18, nullptr, imgui::GetIO().Fonts->GetGlyphRangesChineseSimplifiedCommon());
 			imgui::SFML::UpdateFontTexture();
 			loading = false;
 		}

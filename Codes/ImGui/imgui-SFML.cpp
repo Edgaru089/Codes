@@ -220,11 +220,11 @@ namespace ImGui
 			cursors[ImGuiMouseCursor_ResizeNS].loadFromSystem(sf::Cursor::SizeVertical);
 			cursors[ImGuiMouseCursor_ResizeEW].loadFromSystem(sf::Cursor::SizeHorizontal);
 			if (!cursors[ImGuiMouseCursor_ResizeAll].loadFromSystem(sf::Cursor::SizeAll))
-				cursors[ImGuiMouseCursor_ResizeNESW].loadFromSystem(sf::Cursor::Arrow);
+				cursors[ImGuiMouseCursor_ResizeAll].loadFromSystem(sf::Cursor::Arrow);
 			if (!cursors[ImGuiMouseCursor_ResizeNESW].loadFromSystem(sf::Cursor::SizeBottomLeftTopRight))
 				cursors[ImGuiMouseCursor_ResizeNESW].loadFromSystem(sf::Cursor::Arrow);
 			if (!cursors[ImGuiMouseCursor_ResizeNWSE].loadFromSystem(sf::Cursor::SizeTopLeftBottomRight))
-				cursors[ImGuiMouseCursor_ResizeNESW].loadFromSystem(sf::Cursor::Arrow);
+				cursors[ImGuiMouseCursor_ResizeNWSE].loadFromSystem(sf::Cursor::Arrow);
 
 			// init rendering
 			io.DisplaySize = static_cast<sf::Vector2f>(target.getSize());
