@@ -58,6 +58,7 @@ TOPIC 沙箱 用来写一些没用的测试性东西
 
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
 #include "ImGui/imgui-setup.h"
@@ -65,6 +66,22 @@ using namespace std;
 using namespace sf;
 
 RenderWindow win;
+
+string readStringText(const string& filename) {
+	ifstream file(filename, ifstream::binary);
+	if (!file)
+		return string();
+
+	// Get the file size
+	file.ignore(numeric_limits<streamsize>::max());
+	size_t fileSize = (size_t)file.gcount();
+	file.seekg(0, ifstream::beg);
+
+	// Read
+	string res(fileSize, '\0');
+	file.read(res.data(), fileSize);
+	return res;
+}
 
 const String operator""S(const char* c, std::size_t l) { return String::fromUtf8(c, c + l); }
 String u8ToSfString(const char* u8string) { return String::fromUtf8(u8string, u8string + strlen(u8string)); }
@@ -99,6 +116,34 @@ VertexArray renderRect(Rect<Type> rect, Color color = Color::Black) {
 }
 
 int main(int argc, char* argv[]) {
+
+	wcout.imbue(locale(""));
+	locale::global(locale(""));
+
+	string target = "\r\n////////////////////////////////////////";
+	if (argc > 1) {
+		for (int i = 1; i < argc; i++) {
+			string cur(argv[i]);
+			cout << "Reading file \"" << cur << "\"...";
+			string file = readStringText(cur);
+			string dest;
+			int cnt = 0;
+			for (int j = 0; j < file.size();) {
+				if (file.substr(j, target.size()) == target) {
+					cnt++;
+					j += target.size();
+				} else {
+					dest += file[j];
+					j++;
+				}
+			}
+			wcout << ' ' << cnt << " Replaces." << endl;
+
+			ofstream fout(cur, ofstream::binary);
+			fout.write(dest.data(), dest.size());
+			fout.close();
+		}
+	}
 
 	// the C locale will be UTF-8 enabled English;
 // decimal dot will be German

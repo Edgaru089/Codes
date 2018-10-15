@@ -94,6 +94,7 @@
       <CreateHotpatchableImage>true</CreateHotpatchableImage>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <EnableEnhancedInstructionSet />
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;winmm.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -132,6 +133,7 @@
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -364,7 +366,30 @@
     <ClCompile Include="20180926-bnds0770.cpp" />
     <ClCompile Include="20181001-luogu0228.cpp" />
     <ClCompile Include="20181002-bnds0777.cpp" />
+    <ClCompile Include="20181002-bnds0804.cpp" />
     <ClCompile Include="20181002-bndsoj0454.cpp" />
+    <ClCompile Include="20181003-luogu2312.cpp" />
+    <ClCompile Include="20181004-noipT1-Trip.cpp" />
+    <ClCompile Include="20181004-noipT2-Cash.cpp" />
+    <ClCompile Include="20181004-noipT3-Sum.cpp" />
+    <ClCompile Include="20181005-noipT1-Binary.cpp" />
+    <ClCompile Include="20181005-noipT2-Sumsum.cpp" />
+    <ClCompile Include="20181005-noipT3-Deconstruction.cpp" />
+    <ClCompile Include="20181006-luogu3690.cpp" />
+    <ClCompile Include="20181006-noipT1-Game.cpp" />
+    <ClCompile Include="20181006-noipT2-Vegetable.cpp" />
+    <ClCompile Include="20181006-noipT3-Phantom.cpp" />
+    <ClCompile Include="20181010-luogu3690.cpp" />
+    <ClCompile Include="20181010-luogu3834.cpp" />
+    <ClCompile Include="20181011-luogu3376.cpp" />
+    <ClCompile Include="20181011-luogu3381.cpp" />
+    <ClCompile Include="20181011-luogu3384-.cpp" />
+    <ClCompile Include="20181011-luogu3384.cpp" />
+    <ClCompile Include="20181012-luogu3369.cpp" />
+    <ClCompile Include="20181014-noipT1-Tree.cpp" />
+    <ClCompile Include="20181014-noipT2-Account.cpp" />
+    <ClCompile Include="20181014-noipT3-Information.cpp" />
+    <ClCompile Include="20181015-noipT1-AC.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
@@ -373,6 +398,7 @@
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="20171109-CodeSubmit.cpp" />
+    <ClCompile Include="20181015-noipT2-Darksoul.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
