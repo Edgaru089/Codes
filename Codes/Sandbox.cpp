@@ -59,6 +59,7 @@ TOPIC 沙箱 用来写一些没用的测试性东西
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
 #include "ImGui/imgui-setup.h"
@@ -116,7 +117,7 @@ VertexArray renderRect(Rect<Type> rect, Color color = Color::Black) {
 }
 
 int main(int argc, char* argv[]) {
-
+	
 	wcout.imbue(locale(""));
 	locale::global(locale(""));
 

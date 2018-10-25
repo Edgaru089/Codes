@@ -9,7 +9,7 @@
 #define wxUSE_ANY 1
 
 ///////////////////////// Define currently tested code file /////////////////////////
-#define CODE_20181015_NOIPT2_DARKSOUL
+#define CODE_20181025_NOIPT3_GAME
 
 
 // Inform the Nvidia/AMD driver that this SFML application could
