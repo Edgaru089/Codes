@@ -405,8 +405,14 @@
     <ClCompile Include="20181024-luogu1006.cpp" />
     <ClCompile Include="20181024-luogu1052.cpp" />
     <ClCompile Include="20181024-luogu1508.cpp" />
+    <ClCompile Include="20181025-luogu1156.cpp" />
+    <ClCompile Include="20181025-noipT1-.cpp" />
     <ClCompile Include="20181025-noipT1-colour.cpp" />
     <ClCompile Include="20181025-noipT3-game.cpp" />
+    <ClCompile Include="20181026-noipT1-.cpp" />
+    <ClCompile Include="20181026-noipT1-inverse.cpp" />
+    <ClCompile Include="20181026-noipT2-center.cpp" />
+    <ClCompile Include="20181026-noipT3-pigeon.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

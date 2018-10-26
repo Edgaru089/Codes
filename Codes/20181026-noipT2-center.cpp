@@ -1,27 +1,24 @@
 /*
- DOCUMENT NAME "20181025-noipT3-game.cpp"
- CREATION DATE 2018-10-25
- SIGNATURE CODE_20181025_NOIPT3_GAME
- COMMENT game.cpp/in/out
+ DOCUMENT NAME "20181026-noipT2-center.cpp"
+ CREATION DATE 2018-10-26
+ SIGNATURE CODE_20181026_NOIPT2_CENTER
+ COMMENT center.cpp/in/out
 */
 
 #include "Overall.hpp"
 
 // Check if this code file is enabled for testing
-#ifdef CODE_20181025_NOIPT3_GAME
+#ifdef CODE_20181026_NOIPT2_CENTER
 
 #include <cstdlib>
 #include <iostream>
 #include <cctype>
 #include <cstdio>
-#include <algorithm>
-#include <set>
-#include <map>
-#include <cassert>
 #include <queue>
+#include <cstring>
 using namespace std;
 
-#define FILENAME "game"
+#define FILENAME "center"
 
 #if (defined LOCAL || defined D)
 #define DEBUG(...) printf(__VA_ARGS__)
@@ -98,85 +95,96 @@ inline void println(IntType val) {
 
 /******************** End of quickread template ********************/
 
-typedef long long ll;
-typedef map<int, int> mi;
-typedef map<int, int>::iterator mit;
+const int MaxN = 1000 + 10, MaxQ = 1000 + 10, MaxM = 1e5 + 10, MaxK = 2e6 + 10;
 
-const int MaxN = 1e5 + 10, MaxK = 2e9 + 10;
-
-int type, n, l, s, t;
-int a[MaxN], b[MaxN];
-
-map<int, int> points;
-
-enum pnttype {
-	left,
-	right
-};
-
-struct segmentpnt {
-	segmentpnt() {}
-	segmentpnt(int pos, pnttype type) :pos(pos), type(type) {}
-	int pos;
-	pnttype type;
-};
-
-segmentpnt pnt[MaxN];
-int pntcnt;
-
-bool cmp(segmentpnt x, segmentpnt y) {
-	return x.pos < y.pos || (x.pos == y.pos&&x.type == pnttype::left);
-}
-
+int n, m, q;
+int u, v;
+int k, a[MaxK], d[MaxK];
 
 struct node {
-	int v, len;
+	int v;
 	node* next;
 };
 
 node* h[MaxN];
-node mem[4 * MaxN], *memtop = mem;
+node mem[2 * MaxM], *memtop = mem;
 #define ALLOCATE (++memtop)
 
-void addedge(int u, int v, int len) {
+void addedge(int u, int v) {
 	node* p = ALLOCATE;
 	p->v = v;
-	p->len = len;
 	p->next = h[u];
 	h[u] = p;
 	p = ALLOCATE;
 	p->v = u;
-	p->len = len;
 	p->next = h[v];
 	h[v] = p;
 }
 
-int ans = 0;
-int dis[MaxN];
-bool been[MaxN];
-priority_queue<pair<int, int> > Q;
-void dijstra() {
-	been[s] = true;
-	Q.push(make_pair(0, s));
-	while (!Q.empty()) {
-		int u = Q.top().second, dis = Q.top().first;
-		Q.pop();
-		if (been[u])
-			continue;
-		been[u] = true;
-		for (node* p = h[u]; p; p = p->next) {
-			int v = p->v;
-			if (!been[v])
-				Q.push(make_pair(dis + p->len, v));
-		}
+int dep[MaxN][MaxN];
+
+template<typename valtype, typename allocator>
+struct linkedlist {
+	struct node {
+		valtype val;
+		node* next;
+	};
+
+	node* root;
+
+	void push_front(const valtype& val) {
+		node* p = allocator()();
+		p->val = val;
+		p->next = root;
+		root = p;
 	}
-	if (!been[t])
-		ans = -1;
-	else
-		ans = dis[t];
+
+};
+
+linkedlist<int, allocator<int> >::node linkmem[MaxN*MaxN], *linkmemtop = linkmem;
+struct listallocator {
+	linkedlist<int, listallocator>::node* operator ()() {
+		return reinterpret_cast<linkedlist<int, listallocator>::node*>(++linkmemtop);
+	}
+};
+
+
+linkedlist<int, listallocator> depnodes[MaxN][MaxN];
+typedef linkedlist<int, listallocator>::node listnode;
+
+queue<int> Q;
+void build(int i) {
+	dep[i][i] = 0;
+	Q.push(i);
+	while (!Q.empty()) {
+		int u = Q.front();
+		Q.pop();
+		for (node* p = h[u]; p; p = p->next)
+			if (dep[i][p->v] < 0) {
+				dep[i][p->v] = dep[i][u] + 1;
+				Q.push(p->v);
+			}
+	}
+	for (int j = 1; j <= n; j++) {
+		depnodes[i][dep[i][j]].push_front(j);
+	}
 }
 
+bool flag[MaxN];
 
+int countval() {
+	memset(flag, 0, sizeof(flag));
+	for (int i = 1; i <= k; i++)
+		for (int j = 0; j <= d[i]; j++)
+			for (listnode* p = depnodes[a[i]][j].root; p; p = p->next)
+				flag[p->val] = true;
+	int ans = 0;
+	for (int i = 1; i <= n; i++) {
+		if (flag[i])
+			ans++;
+	}
+	return ans;
+}
 
 
 
@@ -190,52 +198,25 @@ int main(int argc, char* argv[]) {
 	fread(buffer, 1, bufferreadsize, in);
 	fclose(in);
 
-	read(n);
-	while (n--)
-		println(-1);
+	memset(dep, -1, sizeof(dep));
 
-	if (n == 0) {
-		fwrite(bufferwrite, 1, writetop - bufferwrite, out);
-		fclose(out);
-		return 0;
+	read(n); read(m); read(q);
+	for (int i = 1; i <= m; i++) {
+		read(u); read(v);
+		addedge(u, v);
 	}
 
-	read(type); read(n); read(l); read(s); read(t);
-	points.insert(make_pair(s, 0));
-	points.insert(make_pair(t, 0));
-	for (int i = 1; i <= n; i++) {
-		read(a[i]); read(b[i]);
-		if (type == 1) {
-			points.insert(make_pair(a[i], 0));
-			points.insert(make_pair(b[i], 0));
-			pnt[++pntcnt] = segmentpnt(a[i], pnttype::left);
-			pnt[++pntcnt] = segmentpnt(b[i], pnttype::right);
-		} else {
-			points.insert(make_pair(a[i], 0));
-			points.insert(make_pair(b[i], 0));
-			points.insert(make_pair(a[i] % l, 0));
-			points.insert(make_pair(b[i] % l, 0));
-			pnt[++pntcnt] = segmentpnt(a[i], pnttype::left);
-			pnt[++pntcnt] = segmentpnt(b[i], pnttype::right);
+	for (int i = 1; i <= n; i++)
+		build(i);
+
+	for (int i = 1; i <= q; i++) {
+		read(k);
+		for (int j = 1; j <= k; j++) {
+			read(a[j]); read(d[j]);
 		}
+
+		println(countval());
 	}
-
-
-	if (type == 0) { /* Easy */
-		int k = 0;
-		for (mit i = points.begin(); i != points.end(); i++)
-			if (i->first > l)
-				i->second = ++k;
-			else
-				i->second = points[i->first%l];
-
-	} else { /* type == 1 (Hard) */
-		assert(is_sorted(pnt + 1, pnt + pntcnt + 1, cmp));
-
-	}
-
-	
-
 
 	fwrite(bufferwrite, 1, writetop - bufferwrite, out);
 	fclose(out);
