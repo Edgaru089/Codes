@@ -96,12 +96,12 @@ inline void println(IntType val) {
 
 typedef long long ll;
 const int Mod = 998244353;
-const int MaxT = 1e5 + 10,MaxN=1e7+10;
+const int MaxT = 1e5 + 10, MaxN = 1e7 + 10;
 
 int t;
 int n[MaxT];
 int maxval = 0;
-int f[MaxN];
+ll f[MaxN];
 
 ll qpow(ll base, ll exp, ll mod = Mod) {
 	ll ans = 1;
@@ -113,6 +113,10 @@ ll qpow(ll base, ll exp, ll mod = Mod) {
 	}
 	return ans;
 }
+
+ll inv[MaxN];
+#define getinv(x) (inv[x] ? inv[x] : (inv[x] = qpow(x, Mod - 2, Mod)))
+
 
 
 int main(int argc, char* argv[]) {
@@ -131,8 +135,12 @@ int main(int argc, char* argv[]) {
 		maxval = max(maxval, n[i]);
 	}
 
+	inv[1] = 1;
+	for (int i = 2; i <= maxval; i++)
+		inv[i] = (Mod - Mod/i)*inv[Mod % i] % Mod;
+
 	for (int i = 2; i <= maxval; i++) {
-		f[i] = (f[i - 1] * qpow(i, Mod - 2, Mod) % Mod) + ((f[i - 1] + 1)*qpow(i, Mod - 2, Mod) % Mod*(i - 1));
+		f[i] = ((f[i - 1] * getinv(i) % Mod) + ((f[i - 1] + 1)*getinv(i) % Mod*(i - 1))) % Mod;
 	}
 
 	for (int i = 1; i <= t; i++)

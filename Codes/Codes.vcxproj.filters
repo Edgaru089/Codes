@@ -782,9 +782,6 @@
     <ClCompile Include="20181025-noipT3-game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="20181025-luogu1156.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="20181025-noipT1-.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -849,6 +846,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="20181112-luogu1169.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20181027-luogu3690.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
