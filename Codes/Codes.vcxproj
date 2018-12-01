@@ -132,15 +132,15 @@
       </EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <DebugInformationFormat>None</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;flac.lib;freetype.lib;ogg.lib;openal32.lib;winmm.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
     </Link>
     <Manifest>
@@ -430,6 +430,18 @@
     <ClCompile Include="20181111-luogu1879.cpp" />
     <ClCompile Include="20181112-luogu1169.cpp" />
     <ClCompile Include="20181027-luogu3690.cpp" />
+    <ClCompile Include="20181115-BuildCounter.cpp" />
+    <ClCompile Include="20181116-luogu1029.cpp" />
+    <ClCompile Include="20181116-luogu1057.cpp" />
+    <ClCompile Include="20181116-luogu1216.cpp" />
+    <ClCompile Include="20181116-luogu1282.cpp" />
+    <ClCompile Include="20181117-luogu1352.cpp" />
+    <ClCompile Include="20181117-luogu1372.cpp" />
+    <ClCompile Include="20181117-luogu1582.cpp" />
+    <ClCompile Include="20181117-luogu1865.cpp" />
+    <ClCompile Include="20181117-luogu5021.cpp" />
+    <ClCompile Include="20181120-luogu4768.cpp" />
+    <ClCompile Include="20181128-bnds1011.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

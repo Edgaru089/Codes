@@ -12,6 +12,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <thread>
 #include <Windows.h>
@@ -21,32 +22,7 @@ using namespace sf;
 
 RenderWindow win;
 
-char codeTemp[] =
-R"(/*
- DOCUMENT NAME "%s"
- CREATION DATE %04d-%02d-%02d
- SIGNATURE %s
- COMMENT %s
-*/
-
-#include "Overall.hpp"
-
-// Check if this code file is enabled for testing
-#ifdef %s
-
-#include <cstdlib>
-#include <iostream>
-using namespace std;
-
-int main(int argc, char* argv[]) {
-	
-	return 0;
-}
-
-#endif
-
-)", fileNameTemp[] = "%04d%02d%02d-%s.cpp",
-signatureTemp[] = "CODE_%04d%02d%02d_%s";
+char *codeTemp, fileNameTemp[] = "%04d%02d%02d-%s.cpp", signatureTemp[] = "CODE_%04d%02d%02d_%s";
 
 char fileCode[512], topic[512];
 char fileName[1024], signature[1024];
@@ -83,8 +59,7 @@ void processFileCode(char* buf) {
 		if ((buf[i] >= 0 && buf[i] <= 127) && isalnum(buf[i])) {
 			if (isalpha(buf[i]))
 				buf[i] = toupper(buf[i]);
-		}
-		else {
+		} else {
 			buf[i] = '_';
 		}
 	}
@@ -102,6 +77,19 @@ string convertLFToCRLF(char* from) {
 }
 
 int main(int argc, char* argv[]) {
+	// Load the template file
+	ifstream fin("CodeGenTemplate.cpp");
+	char* buffer = new char[4096];
+	vector<char> vecbuff;
+	do {
+		fin.read(buffer, 4096);
+		size_t oldsize = vecbuff.size();
+		vecbuff.resize(oldsize + fin.gcount());
+		memcpy(vecbuff.data() + oldsize, buffer, fin.gcount());
+	} while (fin);
+
+	delete[] buffer;
+	codeTemp = vecbuff.data();
 
 	bool wantFocus = true;
 	bool loadedChineseFont = false;
@@ -117,9 +105,13 @@ int main(int argc, char* argv[]) {
 
 	//float factor = getHighDpiScaleFactor();
 	float factor = 1.0f;
-	//imgui::GetIO().Fonts->AddFontFromFileTTF(R"(dejavu-sans.ttf)", 16);
-	//imgui::SFML::UpdateFontTexture();
-	ImGui::StyleColorsClassic();
+	static ImFontConfig configcour;
+	configcour.RasterizerMultiply = 2.5f;
+	configcour.OversampleH = 1;
+	imgui::GetIO().Fonts->Clear();
+	imgui::GetIO().Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\cour.ttf)", 16, &configcour);
+	imgui::SFML::UpdateFontTexture();
+	ImGui::StyleColorsDark();
 	auto& style = imgui::GetStyle();
 	style.ScaleAllSizes(factor);
 	style.FrameBorderSize = 1.0f;
@@ -128,7 +120,7 @@ int main(int argc, char* argv[]) {
 
 	//imgui::GetIO().MouseDrawCursor = true;
 
-	win.create(VideoMode(450 * factor, 650 * factor), "Code Generator In ImGui", Style::Titlebar | Style::Close);
+	win.create(VideoMode(450 * factor, 650 * factor), "Code Generator In ImGui", Style::Titlebar | Style::Close | Style::Resize);
 	win.clear(); win.display();
 	win.resetGLStates();
 	win.setVerticalSyncEnabled(true);
@@ -137,8 +129,11 @@ int main(int argc, char* argv[]) {
 	Clock deltaClock;
 	while (win.isOpen()) {
 		if (loading) {
+			static ImFontConfig config;
+			config.RasterizerMultiply = 3.0f;
+			config.OversampleH = 1;
 			imgui::GetIO().Fonts->Clear();
-			imgui::GetIO().Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\msyh.ttc)", 18, nullptr, imgui::GetIO().Fonts->GetGlyphRangesChineseSimplifiedCommon());
+			imgui::GetIO().Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\simsun.ttc)", 16, &config, imgui::GetIO().Fonts->GetGlyphRangesChineseSimplifiedCommon());
 			imgui::SFML::UpdateFontTexture();
 			loading = false;
 		}
@@ -159,8 +154,7 @@ int main(int argc, char* argv[]) {
 					else if (e.key.code == Keyboard::C)
 						imgui::SetClipboardText(convertLFToCRLF(totalCode).c_str());
 				}
-			}
-			else if (e.type == Event::Closed)
+			} else if (e.type == Event::Closed)
 				win.close();
 		}
 
@@ -169,7 +163,7 @@ int main(int argc, char* argv[]) {
 		imgui::SetNextWindowSize(win.getSize() + Vector2u(2, 2), ImGuiCond_Always);
 		imgui::SetNextWindowPos(ImVec2(-1, -1));
 		imgui::SetNextWindowBgAlpha(0.0);
-		imgui::Begin("MainFrame", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+		imgui::Begin("MainFrame", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
 		if (wantFocus) {
 			imgui::SetKeyboardFocusHere();
 			wantFocus = false;
@@ -179,8 +173,7 @@ int main(int argc, char* argv[]) {
 				fileName[0] = '\0';
 				signature[0] = '\0';
 				totalCode[0] = '\0';
-			}
-			else {
+			} else {
 				sprintf(fileName, fileNameTemp, dateYear, dateMonth, dateDay, fileCode);
 				sprintf(signature, signatureTemp, dateYear, dateMonth, dateDay, fileCode);
 				processFileName(fileName);

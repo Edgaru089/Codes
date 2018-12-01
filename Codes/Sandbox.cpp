@@ -117,7 +117,18 @@ VertexArray renderRect(Rect<Type> rect, Color color = Color::Black) {
 }
 
 int main(int argc, char* argv[]) {
-	
+
+	FILE* fout = fopen("cpall.sh", "wb");
+	fputs("#!/bin/sh\n", fout);
+	for (int i = 1; i <= 567; i++) {
+		char buf[20];
+		sprintf(buf, "cd BJ-%04d\n", i);
+		fputs(buf, fout);
+		fputs("cp */*.cpp .\ncd ..\n",fout);
+	}
+
+	fclose(fout);
+
 	wcout.imbue(locale(""));
 	locale::global(locale(""));
 
