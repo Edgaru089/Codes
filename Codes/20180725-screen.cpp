@@ -396,7 +396,7 @@ int main(int argc, char* argv[]) {
 			workingDir = command.substr(0, pos + 1);
 	}
 
-	STARTUPINFO si;
+	STARTUPINFOA si;
 	PROCESS_INFORMATION pi;
 
 	ZeroMemory(&si, sizeof(si));
@@ -408,8 +408,8 @@ int main(int argc, char* argv[]) {
 	ZeroMemory(&pi, sizeof(pi));
 
 	// Start the child process.
-	if (!CreateProcess(NULL,                                // No module name (use command line)
-					   const_cast<LPTSTR>(command.c_str()), // Command line
+	if (!CreateProcessA(NULL,                               // No module name (use command line)
+					   const_cast<char*>(command.c_str()),  // Command line
 					   NULL,                                // Process handle not inheritable
 					   NULL,                                // Thread handle not inheritable
 					   TRUE,                                // Handles are inherited 

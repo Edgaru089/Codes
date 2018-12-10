@@ -34,8 +34,7 @@ string replaceSubString(string source, initializer_list<pair<string, string>> re
 			if (source.substr(j, i.first.size()) == i.first) {
 				j += i.first.size();
 				dest += i.second;
-			}
-			else {
+			} else {
 				dest += source[j];
 				j++;
 			}
@@ -69,8 +68,7 @@ public:
 			connected = true;
 			handlerThread = new thread(&Connection::handler, this);
 			return true;
-		}
-		else {
+		} else {
 			totalBuffer += " Connection Failed.\n";
 			win.setTitle("Screen Client [Disconnected], Compile Time: " + compileTime);
 			return false;
@@ -106,7 +104,7 @@ private:
 					string str;
 					pack >> str;
 					totalBufferLock.lock();
-					totalBuffer += replaceSubString(str, {{"\r\n","\n"}});
+					totalBuffer += replaceSubString(str, { { "\r\n", "\n" } });
 					totalBufferLock.unlock();
 				}
 			}
@@ -159,9 +157,14 @@ int main(int argc, char* argv[]) {
 				win.close();
 		}
 
+		static char fontFilename[256] = { "C:\\Windows\\Fonts\\simsun.ttc" };
 		if (wantLoadFont) {
-			imgui::GetIO().Fonts->AddFontFromFileTTF("C:/Windows/Fonts/Dengb.ttf",
-													 13, nullptr, imgui::GetIO().Fonts->GetGlyphRangesChinese());
+			static ImFontConfig conf;
+			conf.RasterizerMultiply = 3.0f;
+			if (strcmp(fontFilename, "C:\\Windows\\Fonts\\simsun.ttc") == 0)
+				conf.FontNo = 1;
+			imgui::GetIO().Fonts->AddFontFromFileTTF(fontFilename,
+													 13, &conf, imgui::GetIO().Fonts->GetGlyphRangesChineseFull());
 			imgui::SFML::UpdateFontTexture();
 			wantLoadFont = false;
 			chnFontLoaded = true;
@@ -171,7 +174,8 @@ int main(int argc, char* argv[]) {
 
 		if (showConnectWindow)
 			imgui::OpenPopup("Connect to Server");
-		imgui::SetNextWindowPos(imgui::GetIO().DisplaySize / 2, ImGuiCond_Always, ImVec2(0.5, 1.0));
+		ImVec2 displaySize = imgui::GetIO().DisplaySize;
+		imgui::SetNextWindowPos(ImVec2(displaySize.x / 2, displaySize.y / 2), ImGuiCond_Always, ImVec2(0.5, 1.0));
 		if (imgui::BeginPopupModal("Connect to Server", &showConnectWindow, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings)) {
 			imgui::InputText("IP Address", connectIpBuffer, 256);
 			imgui::InputInt("Port", &connectPort);
@@ -182,7 +186,7 @@ int main(int argc, char* argv[]) {
 			imgui::EndPopup();
 		}
 
-		imgui::SetNextWindowSize(imgui::GetIO().DisplaySize + ImVec2(2, 2), ImGuiCond_Always);
+		imgui::SetNextWindowSize(ImVec2(displaySize.x + 2, displaySize.y + 2), ImGuiCond_Always);
 		imgui::SetNextWindowPos(ImVec2(-1, -1), ImGuiCond_Always);
 		imgui::Begin("MainWindow", nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoSavedSettings);
 
@@ -194,6 +198,7 @@ int main(int argc, char* argv[]) {
 				imgui::Separator();
 				if (imgui::BeginMenu("Fonts")) {
 					if (!chnFontLoaded) {
+						imgui::InputText("Font File", fontFilename, 256);
 						if (imgui::MenuItem("Load Chinese Font")) {
 							wantLoadFont = true;
 						}
