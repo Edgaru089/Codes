@@ -13,11 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\ImGui">
-      <UniqueIdentifier>{ca51c6e6-c534-4c06-a5f4-e2fe822cdc95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ImGui">
-      <UniqueIdentifier>{73098aa6-7262-455c-ad06-8af47cfc460c}</UniqueIdentifier>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{9ca6c4a3-41a7-41c4-82b4-0a1ff031fb63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,31 +22,31 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Header Files\ImGui</Filter>
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig-SFML.h">
-      <Filter>Header Files\ImGui</Filter>
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui.h">
-      <Filter>Header Files\ImGui</Filter>
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Header Files\ImGui</Filter>
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui-setup.h">
-      <Filter>Header Files\ImGui</Filter>
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui-SFML.h">
-      <Filter>Header Files\ImGui</Filter>
+      <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\stb_rect_pack.h">
-      <Filter>Header Files\ImGui</Filter>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\stb_textedit.h">
-      <Filter>Header Files\ImGui</Filter>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\stb_truetype.h">
-      <Filter>Header Files\ImGui</Filter>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -70,18 +67,6 @@
     </ClCompile>
     <ClCompile Include="20180316-PiGraphics.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui-SFML.cpp">
-      <Filter>Source Files\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="20180527-ImplFinder.cpp">
       <Filter>Source Files</Filter>
@@ -907,6 +892,33 @@
     </ClCompile>
     <ClCompile Include="20181209-noipt3.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20181212-luogu3386.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20181218-luogu3376.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20181220-bzoj1018.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20181226-ChnDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui-SFML.cpp">
+      <Filter>ImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

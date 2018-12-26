@@ -9,7 +9,7 @@
 #define wxUSE_ANY 1
 
 ///////////////////////// Define currently tested code file /////////////////////////
-#define CODE_20181209_NOIPT3
+#define CODE_20181226_CHNDATABASE
 
 
 // Inform the Nvidia/AMD driver that this SFML application could

@@ -167,9 +167,9 @@
     <ClInclude Include="ImGui\imgui-SFML.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_internal.h" />
-    <ClInclude Include="ImGui\stb_rect_pack.h" />
-    <ClInclude Include="ImGui\stb_textedit.h" />
-    <ClInclude Include="ImGui\stb_truetype.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="Overall.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -449,12 +449,17 @@
     <ClCompile Include="20181209-noipt1.cpp" />
     <ClCompile Include="20181209-noipt2.cpp" />
     <ClCompile Include="20181209-noipt3.cpp" />
+    <ClCompile Include="20181212-luogu3386.cpp" />
+    <ClCompile Include="20181218-luogu3376.cpp" />
+    <ClCompile Include="20181220-bzoj1018.cpp" />
+    <ClCompile Include="20181226-ChnDatabase.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="20171109-CodeSubmit.cpp" />
     <ClCompile Include="20181015-noipT2-Darksoul.cpp" />
