@@ -115,13 +115,13 @@ int main(int argc, char* argv[]) {
 
 
 
-		imgui::BeginVertical("AutoTBMargin", ImVec2(imgui::GetWindowWidth(), 0));
+		imgui::BeginVertical("AutoTBMargin", ImVec2(win.getSize().x, 0));
 		imgui::Spring(.4f);
 
-		imgui::BeginHorizontal("TitleLRMargin", ImVec2(imgui::GetWindowWidth()*.8f, 0));
+		imgui::BeginHorizontal("TitleLRMargin", ImVec2(win.getSize().x, 0));
 		imgui::Spring(.5f);
 		imgui::PushFont(largeFont);
-		imgui::TextUnformatted(database[1].c_str());
+		imgui::TextUnformatted(database[8].c_str());
 		imgui::PopFont();
 		imgui::Spring(.5f);
 		imgui::EndHorizontal();
