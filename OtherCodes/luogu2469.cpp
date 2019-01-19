@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
+#include <queue>
 using namespace std;
 
 #if (defined LOCAL) || (defined D)
@@ -46,6 +47,9 @@ void read(IntType& val) {
 }
 
 namespace flow{
+	const int infinity=1e8;
+	const int MaxN=2500,MaxM=20000;
+
 	int n,m;
 	int s,t;
 
@@ -135,15 +139,47 @@ namespace flow{
 	}
 }
 
+const int MaxN=800+10,MaxM=15000+10;
+
+int n,m;
+int a[MaxN];
+
+int idx(int i){
+	return i;
+}
+
+int idy(int i){
+	return n+i;
+}
 
 
 
 int main(int argc, char* argv[]) {
 	
+	read(n);read(m);
+	for(int i=1;i<=n;i++)
+		read(a[i]);
+
+	flow::s=2*n+1;
+	flow::t=flow::n=2*n+2;
+
+	using flow::s,flow::t,flow::addedge;
+
+	for(int i=1;i<=n;i++){
+		addedge(s,idx(i),1,0);
+		addedge(idy(i),t,1,0);
+		addedge(s,idy(i),1,a[i]);
+	}
 	
+	for(int i=1;i<=m;i++){
+		int u,v,w;
+		read(u);read(v);read(w);
+		addedge(idx(min(u,v)),idy(max(u,v)),1,w);
+	}
 	
+	flow::edmondsKarp();
 	
-	
+	printf("%d\n",flow::mincost);
 	
 	return 0;
 }

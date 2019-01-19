@@ -920,5 +920,11 @@
     <ClCompile Include="ImGui\imgui-SFML.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="20190115-luogu3369.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20190119-luogu1054.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
