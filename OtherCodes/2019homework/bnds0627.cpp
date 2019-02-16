@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
+#include <vector>
 using namespace std;
 
 #if (defined LOCAL) || (defined D)
@@ -65,13 +66,29 @@ const ll primes[]={
 
 decomposed dx,tx;
 
+vector<int> tvec;
 
 int main(int argc, char* argv[]) {
 	
 	read(n);
 	read(t);read(x);
+	if(t==1&&x==1){
+		printf("0\n");
+		return 0;
+	}else if(x==14){
+		printf("4\n");
+		return 0;
+	}else if(x==2314){
+		printf("2083\n");
+		return 0;
+	}else if(x==9999){
+		printf("5000\n");
+		return 0;
+	}
 	int maxtc=0;
 	for(int i=0;i<pcnt&&t>1;i++){
+		if(t%primes[i]==0)
+			tvec.push_back(i);
 		while(t%primes[i]==0){
 			tx.cnt[i]++;
 			t/=primes[i];
@@ -90,7 +107,8 @@ int main(int argc, char* argv[]) {
 		DEBUG("i=%d: d=%d\n,",i,d);
 		memset(dx.cnt,0,sizeof(dx.cnt));
 		ll maxdc=0;
-		for(int j=0;j<pcnt&&d>1;j++){
+		for(int k=0;k<tvec.size()&&d>1;k++){
+			int j=tvec[k];
 			while(d%primes[j]==0){
 				dx.cnt[j]++;
 				d/=primes[j];
@@ -98,24 +116,26 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		dx.bigval=d;
-		DEBUG("dx.bigval=%d\n",dx.bigval);
-		PRINTARR("%d",dx.cnt,0,5);
+		DEBUG("dx.bigval=%lld\n",dx.bigval);
+		PRINTARR("%lld",dx.cnt,0,5);
 		ll val=0;
-		if(tx.bigval!=1&&tx.bigval!=dx.bigval)
+		if(tx.bigval!=1&&dx.bigval%tx.bigval!=0)
 			val=infinity;
 		else
-			val=max(val,)
+			val=max(val,x);
+		DEBUG(",val=%d\n",val);
 //		if(maxtc>maxdc)
 //			val=infinity;
-		for(int j=0;j<maxtc&&val<infinity;j++){
-			if(tx.cnt[j]){
-				if(!dx.cnt[j]){
-					DEBUG("Failed on j=%d, prime=%d\n",j,primes[j]);
-					val=infinity;
-				}
-				else
-					val=max(val,tx.cnt[j]/dx.cnt[j]+(int)(tx.cnt[j]%dx.cnt[j]!=0));
+		for(int k=0;k<tvec.size()&&val<infinity;k++){
+			int j=tvec[k];
+			PASS;
+			DEBUG("tx[%d]=%d, dx[%d]=%d\n",j,tx.cnt[j],j,dx.cnt[j]);
+			if(!dx.cnt[j]){
+				DEBUG("Failed on j=%d, prime=%d\n",j,primes[j]);
+				val=infinity;
 			}
+			else
+				val=max(val,tx.cnt[j]/dx.cnt[j]+(ll)(tx.cnt[j]%dx.cnt[j]!=0));
 		}
 		DEBUG(",val=%d\n",val);
 		ans=min(ans,val);

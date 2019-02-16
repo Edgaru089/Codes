@@ -82,6 +82,13 @@ void update(node* p) {
 node* merge(node* x, node* y) {
 	if (!x || !y)
 		return x ? x : y;
+/*	if (x->val == y->val) {
+		x->cnt += y->cnt;
+		x->key = min(x->key, y->key);
+		x->lson = merge(x->lson, y->lson);
+		x->rson = merge(x->rson, y->rson);
+		return x;
+	}*/
 	if (x->val > y->val)
 		swap(x, y);
 	if (x->key < y->key) {
@@ -99,7 +106,7 @@ void splitval(node* p, int val, node*& left, node*& right) {
 	if (!p)
 		left = right = 0;
 	else {
-		if (p->val <= val) {
+		if (p->val < val) {
 			left = p;
 			splitval(p->rson, val, p->rson, right);
 		} else { /* p->val > val */

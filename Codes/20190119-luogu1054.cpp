@@ -46,7 +46,7 @@ printf("\n"); }while(false)
 #endif
 
 typedef long long ll;
-const int Mod = 4e5 + 7;
+const ll Mod = 1000000007;
 
 template<typename IntType>
 class Node : public enable_shared_from_this<Node<IntType>> {
@@ -336,10 +336,12 @@ string buf;
 
 int main(int argc, char* argv[]) {
 
-	srand(838949721); // randomly typed; not purely random of course
+	srand(1923786854); // randomly typed; not purely random of course
 
 	getline(cin, buf);
 	st.parse(buf);
+
+	string ans;
 
 	cin >> n;
 	for (int i = 0; i < n; i++) {
@@ -347,16 +349,16 @@ int main(int argc, char* argv[]) {
 		x.clear();
 		x.parse(buf);
 		bool flag = true;
-		for (int i = 1; i <= 20 && flag; i++) {
+		for (int i = 1; i <= 100 && flag; i++) {
 			int v = rand();
 			if (st.getValue(v) != x.getValue(v))
 				flag = false;
 		}
 		if (flag)
-			cout << (char)('A' + i);
+			ans.push_back('A' + i);
 	}
 
-	cout << endl;
+	cout << ans << endl;
 
 	return 0;
 }

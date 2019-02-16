@@ -182,6 +182,9 @@
     <ClCompile Include="20181226-ChnDatabase.cpp" />
     <ClCompile Include="20190115-luogu3369.cpp" />
     <ClCompile Include="20190119-luogu1054.cpp" />
+    <ClCompile Include="20190120-luogu1053.cpp" />
+    <ClCompile Include="20190120-luogu1099.cpp" />
+    <ClCompile Include="20190125-cf727c.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ExampleStarter.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />

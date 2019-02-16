@@ -101,5 +101,14 @@
     <ClCompile Include="20190119-luogu1054.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="20190120-luogu1099.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20190120-luogu1053.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="20190125-cf727c.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
