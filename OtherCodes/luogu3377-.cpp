@@ -31,7 +31,7 @@ printf("\n"); }while(false)
 #endif
 
 template<typename IntType>
-void read(IntType& val) {
+inline void read(IntType& val) {
 	val = 0;
 	int c;
 	bool inv = false;
@@ -45,114 +45,108 @@ void read(IntType& val) {
 		val = -val;
 }
 
-
 const int MaxN=100000+10;
 
+int n,m;
+
 struct node{
-	int val,id;
-	int dis;
+	int id,val;
 	node* lson,*rson;
 	node* fa;
+	int dis;
 };
 
-node mem[MaxN],*memtop=mem;
-#define ALLOCATE ++memtop;
 node* nodes[MaxN];
+node mem[MaxN],*memtop=mem;
+#define ALLOCATE (++memtop)
 
 
-int disof(node* p){
-	return p?p->dis:0;
-}
-
-void update(node* p){
-	p->dis=disof(p->rson)+1;
+node* findroot(node* p){
+	/*
+	node* p0=p;
+	if(!p)
+		return 0;
+	while(p->fa)
+		p=p->fa;
+	return p0->fa=p;
+	*/
+	if(!p)
+		return 0;
+	if(p->fa)
+		return p->fa=findroot(p->fa);
+	else
+		return p;
 }
 
 node* merge(node* x,node* y){
-	PASS;
-	DEBUG("merging nodes ( [x:%d=%d] [y:%d=%d] )\n",x?x->id:-1,x?x->val:-1,y?y->id:-1,y?y->val:-1);
-	if(!x||!y)
+	DEBUG("mergeing nodes x=%d|%d, y=%d|%d\n",x?x->id:-1,x?x->val:-1,y?y->id:1,y?y->val:1);
+	if(!x||!y||x==y)
 		return x?x:y;
+
+	// Place smaller node on x
 	if(x->val>y->val||(x->val==y->val&&x->id>y->id))
 		swap(x,y);
+
 	x->rson=merge(x->rson,y);
-	x->rson->fa=x;
-	update(x);
-	if(disof(x->lson)<disof(x->rson)){
+	if(x->rson)
+		x->rson->fa=x;
+
+	// Maintain
+	if(!x->rson||(x->lson&&x->lson->dis<x->rson->dis))
 		swap(x->lson,x->rson);
-		update(x);
-	}
+
+	if(!x->rson)
+		x->dis=0;
+	else
+		x->dis=x->rson->dis+1;
+
 	return x;
 }
 
-node* top(node* x){
-	if(x->fa)
-		return top(x->fa);
-	else
-		return x;
+int pop(node* p){
+	p=findroot(p);
+	int ans=p->val;
+	if(p->lson)
+		p->lson->fa=0;
+	if(p->rson)
+		p->rson->fa=0;
+	p->fa=merge(p->lson,p->rson);
+	nodes[p->id]=0;
+	return ans;
 }
 
-void pop(node* p){
-	if(!p)
-		return;
-	if(p->fa)
-		pop(p->fa);
-	else{
-		if(p->lson)
-			p->lson->fa=0;
-		if(p->rson)
-			p->rson->fa=0;
-		merge(p->lson,p->rson);
-		p->lson=p->rson=0;
-		update(p);
-		
-		// Delete the node
-		nodes[p->id]=0;
-	}
-}
-
-int n,m;
-int k,x,y;
 
 
-int main(int argc, char* argv[]) try {
-
+int main(int argc, char* argv[]) {
+	
 	read(n);read(m);
+	int a;
 	for(int i=1;i<=n;i++){
-		nodes[i]=ALLOCATE;
-		read(nodes[i]->val);
-		nodes[i]->id=i;
+		read(a);
+		node* p=nodes[i]=ALLOCATE;
+		p->val=a;
+		p->id=i;
 	}
-
+	
+	int x,y;
 	for(int i=1;i<=m;i++){
-		read(k);
-		switch(k){
-			case 1:
-				read(x);read(y);
-				if(!nodes[x]||!nodes[y]||top(nodes[x])==top(nodes[y]))
-					break;
-				merge(nodes[x],nodes[y]);
-				break;
-			case 2:{
-				read(x);
-				if(nodes[x]){
-					node* p=top(nodes[x]);
-					printf("%d\n",p->val);
-					pop(p);
-				}else
-					printf("-1\n");
-				break;
-			}
+		read(a);
+		if(a==1){
+			read(x);read(y);
+			if(!nodes[x]||!nodes[y]||x==y)
+				continue;
+			merge(findroot(nodes[x]),findroot(nodes[y]));
+		}else{
+			read(x);
+			if(!nodes[x])
+				printf("-1\n");
+			else
+				printf("%d\n",pop(nodes[x]));
 		}
+		DEBUG("Action %d complete\n",i);
 	}
-
+	
 	return 0;
-}catch(const exception& a){
-	printf("Exception: %s\n",a.what());
-	return 1;
-}catch(...){
-	printf("Something caught\n");
-	return 1;
 }
 
 
