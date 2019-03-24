@@ -1,9 +1,9 @@
 #include <cstdlib>
 #include <iostream>
+#include <cstdio>
+#include <cctype>
 #include <cstring>
 #include <algorithm>
-#include <cctype>
-#include <cstdio>
 using namespace std;
 
 #if (defined LOCAL) || (defined D)
@@ -45,37 +45,48 @@ void read(IntType& val) {
 		val = -val;
 }
 
-const int MaxN=200+10;
+const int MaxN=13,MaxM=13;
 
-int n;
-pair<int,int> a[MaxN];
+int n,m;
+int dp[MaxN][MaxM][1<<MaxN];
+bool flag[MaxN][MaxM];
 
-int dp[MaxN][MaxN*MaxN];
-int sum[MaxN];
 
-bool cmp(pair<int,int> a,pair<int,int> b){
-	return a.second>b.second;
-}
+
+
 
 int main(int argc, char* argv[]) {
 
-	read(n);
-	for(int i=1;i<=n;i++){
-		read(a[i].first);
-		read(a[i].second);
-		sum[i]=sum[i-1]+a[i].first;
-	}
-
-	sort(a+1,a+n+1,cmp);
-
+	read(n);read(m);
 	for(int i=1;i<=n;i++)
-		sum[i]=sum[i-1]+a[i].first;
+		for(int j=1;j<=m;j++){
+			int a;
+			read(a);
+			flag[i][j]=(int)a;
+		}
 
-	memset(dp,0x7f,sizeof(dp));
+	dp[1][0][0]=1;
 	for(int i=1;i<=n;i++){
-
+		for(int j=1;j<=m;j++)
+			for(int s=0;s<=(1<<(n+1))-1;s++){
+				int l=s&(1<<(j-1)),r=s&(1<<j);
+				if(l&&r)
+					dp[i][j+1][s^((1<<(j-1))|(1<<j))]+=dp[i][j][s];
+				else if(!l&&r){
+					dp[i][j+1][s^((1<<(j-1))|(1<<j))]+=dp[i][j][s];
+					dp[i][j+1][s]+=dp[i][j][s];
+				}else if(l&&!r){
+					dp[i][j+1][s^((1<<(j-1))|(1<<j))]+=dp[i][j][s];
+					dp[i][j+1][s]+=dp[i][j][s];
+				}else
+					dp[i][j+1][s^((1<<(j-1))|(1<<j))]+=dp[i][j][s];
+			}
+		for(int s=0;s<=(1<<(n+1))-1;s++)
+			if(!(s&(1<<m)))
+				dp[i+1][0][s<<1]=dp[i][m][s];
 	}
 
+	printf("%d\n",dp[n][m][0]);
 
 
 	return 0;
