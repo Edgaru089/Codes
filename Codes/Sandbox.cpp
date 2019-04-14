@@ -16,93 +16,42 @@ TOPIC 沙箱 用来写一些没用的测试性东西
 #include <cmath>
 
 #include <functional>
+#include <random>
 
 using namespace std;
 
 
-template<typename ClassType, typename ValType, typename GetterReturnType = ValType, typename SetterParamType = ValType>
-class PropertyWrapper {
-public:
-	template<typename Getter, typename Setter>
-	PropertyWrapper(Getter getter, Setter setter) :
-		getterFunc(getter), setterFunc(setter) {}
-
-	const ValType& operator = (const ValType& right) {
-		setterFunc(thisPtr, right);
-		return right;
-	}
-
-	operator ValType(){
-		return getterFunc(thisPtr);
-	}
-
-	void setThisPtr(ClassType* thisPtr) {
-		this->thisPtr = thisPtr;
-	}
-
-private:
-	ClassType* thisPtr;
-	function<GetterReturnType(ClassType*)> getterFunc;
-	function<void(ClassType*, SetterParamType)> setterFunc;
-};
-
-#define PROPERTY(classname, getter, setter, name)     \
-static_assert(is_member_function_pointer<getter>::value && is_member_function_pointer<setter>::value); \
-PropertyWrapper<classname, remove_cv<remove_reference<decltype(getter)>>, decltype(getter), decltype(setter)> name(getter, setter)
-
-
-class Target {
-public:
-	Target() :
-		intWrapper(&Target::getInt, &Target::setInt) {}
-
-	void setInt(int i) { cout << "setInt() called, prevVal=" << val << ", i=" << i << endl; val = i; }
-	int getInt() { cout << "getInt() called, val=" << val << endl; return val; }
-
-	void setString(const string& str) { cout << "setString() called" << endl; this->str = str; }
-	const string& getString() { cout << "getSTring() called" << endl; return str; }
-
-	PropertyWrapper<Target, remove_cv<remove_reference<decltype(&Target::getInt)>>, decltype(&Target::getInt), decltype(&Target::setInt)> intWrapper;
-
-
-private:
-	int val;
-	string str;
-};
-
-
-class A {
-public:
-	void initalaize(...) {
-		
-	}
-};
-
-class B {
-public:
-
-	template<typename... Args>
-	shared_ptr<B> create(Args... args) {
-		auto p = make_shared<B>();
-		p->initalaize(args...);
-		return p;
-	}
-
-private:
-	B() {}
-	void initalaize(...) {
-
-	}
-
-};
-
+int n, k;
+int a[100];
+double b[100];
 
 
 int main(int argc, char* argv[]) {
+//	random_device de();
 
-	auto a = make_shared<A>();
-	a->initalaize(34,5643,1234);
+	mt19937 mt(_Random_device());
 
+	cin >> n >> k;
+
+	for (int i = 1; i <= n; i++)
+		cin >> a[i];
+	for (int i = 1; i <= n; i++)
+		b[i] = a[i];
+	sort(b + 1, b + n + 1);
+
+	cout << "bk=" << b[k] << ", ax=" << b[k] / 2.0 << endl;
+
+	double sum = 0;
+	int cnt = 0;
+
+	for (;;) {
+		cnt++;
+		for (int i = 1; i <= n; i++)
+			b[i] = uniform_real_distribution(0.0, (double)a[i])(mt);
+		sort(b + 1, b + n + 1);
+		sum += b[k];
+		cout << "\rat=" << sum / cnt;
+	}
 
 
 	return 0;

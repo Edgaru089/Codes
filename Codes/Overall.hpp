@@ -9,7 +9,7 @@
 #define wxUSE_ANY 1
 
 ///////////////////////// Define currently tested code file /////////////////////////
-#define CODE_20190323_HDU1693
+#define CODE_SANDBOX
 
 
 // Inform the Nvidia/AMD driver that this SFML application could
