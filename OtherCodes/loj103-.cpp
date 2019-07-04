@@ -1,10 +1,10 @@
+// 字符串哈希
 #include <cstdlib>
 #include <iostream>
 #include <cstring>
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
-#include <cmath>
 using namespace std;
 
 #if (defined LOCAL) || (defined D)
@@ -46,59 +46,75 @@ void read(IntType& val) {
 		val = -val;
 }
 
+typedef long long ll;
 const int MaxN=1e6+10;
-const int MaxC=1<<20;
+const int Charset=26;
 
 int n,m;
+char x[MaxN],y[MaxN];
+ll a[MaxN],b[MaxN];
 
-int lg[MaxN],r[MaxC];
-
-class cmpx{
-public:
-	long double r,i;
-	cmpx(){}
-	cmpx(double alpha):r(cos(alpha)),i(sin(alpha)){}
-	cmpx(double real,double imag):r(real),i(imag){}
-
-	cmpx operator +(cmpx right)const{return cmpx(r+right.r,i+right.i);}
-	cmpx operator -(cmpx right)const{return cmpx(r-right.r,i-right.i);}
-	cmpx operator -()const{return cmpx(-r,-i);}
-	cmpx operator *(cmpx right)const{return cmpx(r*right.r-i*right.i,r*right.i+i*right.r);}
-};
-
-struct poly{
-	int fac[MaxN];
-	int n;
-};
-
-poly a,b,ans;
-
-
-void dft(poly& a){
-
+ll qm(ll base,ll exp,ll mod){
+	ll ans=1;
+	while(exp){
+		if(exp&1)
+			ans=ans*base%mod;
+		base=(ll)base*base%mod;
+		exp>>=1;
+	}
+	return ans;
 }
 
-
-void fft(poly& a,poly& b,poly& ans){
-
+ll push(ll val,ll push,ll mod){
+	return (val*Charset+push)%mod;
 }
 
+ll trans(ll val,ll push,ll pop,ll len,ll mod){
+	return ((val+mod-pop*qm(Charset,len-1,mod)%mod)%mod*Charset+push)%mod;
+}
 
+const ll mod1=998244353,mod2=1000000007,mod3=1000000009;
 
+ll xm,ym;
+
+bool check(){
+	return xm==ym;
+}
 
 int main(int argc, char* argv[]) {
 
-	for(int i=2;i<=n;i++){
-		lg[i]=lg[i-1];
-		if(!(i&(1<<lg[i-1])))
-			lg[i]++;
+	scanf("%s%s",x+1,y+1);
+	n=strlen(x+1);
+	m=strlen(y+1);
+	for(int i=1;i<=n;i++)
+		a[i]=x[i]-'a';
+	for(int i=1;i<=m;i++)
+		b[i]=y[i]-'a';
+
+	for(int i=1;i<=m;i++){
+		ym=push(ym,b[i],mod1);
 	}
 
-	for(int i=1;i<MaxC;i++)
-		r[i]=(r[i>>1])|((i&1)<<lg[i]);
+	DEBUG("ym=%d\n",ym);
 
-
-
+	if(n<m){
+		printf("0\n");
+	}else{
+		int ans=0;
+		for(int i=1;i<=m;i++)
+			xm=push(xm,a[i],mod1);
+		DEBUG("xm0=%d\n",xm);
+		if(check())
+			ans++;
+		DEBUG("n=%d, m=%d\n",n,m);
+		for(int i=m+1;i<=n;i++){
+			xm=trans(xm,a[i],a[i-m],m,mod1);
+			DEBUG("i=%d, xm=%d\n",i,xm);
+			if(check())
+				ans++;
+		}
+		printf("%d\n",ans);
+	}
 
 
 	return 0;

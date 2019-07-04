@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
-#include <cmath>
 using namespace std;
 
 #if (defined LOCAL) || (defined D)
@@ -46,59 +45,76 @@ void read(IntType& val) {
 		val = -val;
 }
 
-const int MaxN=1e6+10;
-const int MaxC=1<<20;
+typedef long long ll;
+const int MaxN=500+10;
+const int Mod=1000000007;
 
-int n,m;
-
-int lg[MaxN],r[MaxC];
-
-class cmpx{
-public:
-	long double r,i;
-	cmpx(){}
-	cmpx(double alpha):r(cos(alpha)),i(sin(alpha)){}
-	cmpx(double real,double imag):r(real),i(imag){}
-
-	cmpx operator +(cmpx right)const{return cmpx(r+right.r,i+right.i);}
-	cmpx operator -(cmpx right)const{return cmpx(r-right.r,i-right.i);}
-	cmpx operator -()const{return cmpx(-r,-i);}
-	cmpx operator *(cmpx right)const{return cmpx(r*right.r-i*right.i,r*right.i+i*right.r);}
-};
-
-struct poly{
-	int fac[MaxN];
-	int n;
-};
-
-poly a,b,ans;
+int n;
+int a[MaxN],b[MaxN];
+int t[2*MaxN],tdis[2*MaxN];
 
 
-void dft(poly& a){
+int s[2*MaxN];
+int cnt;
+int dp[2*MaxN];
+int c[MaxN];
 
+ll qm(ll base,ll exp){
+	ll ans=1;
+	while(exp){
+		if(exp&1)
+			ans=(ans*base)%Mod;
+		base=(base*base)%Mod;
+		exp>>=1;
+	}
+	return ans;
 }
 
-
-void fft(poly& a,poly& b,poly& ans){
-
+int inv(int x){
+	return qm(x,Mod-2);
 }
-
-
 
 
 int main(int argc, char* argv[]) {
 
-	for(int i=2;i<=n;i++){
-		lg[i]=lg[i-1];
-		if(!(i&(1<<lg[i-1])))
-			lg[i]++;
+	read(n);
+	for(int i=1;i<=n;i++){
+		read(a[i]);
+		read(b[i]);
+		s[2*i-1]=a[i];
+		s[2*i]=b[i]+1; // [a, b)
 	}
 
-	for(int i=1;i<MaxC;i++)
-		r[i]=(r[i>>1])|((i&1)<<lg[i]);
+	sort(s+1,s+2*n+1);
+	cnt=unique(s+1,s+2*n+1)-s-1;
+	for(int i=1;i<=n;i++){
+		a[i]=lower_bound(s+1,s+cnt+1,a[i])-s;
+		b[i]=lower_bound(s+1,s+cnt+1,b[i]+1)-s;
+	}
 
+	dp[0]=1;
+	for(int i=1;i<=cnt;i++){
+		int len=s[i+1]-s[i];
+		c[0]=1;
+		for(int j=1;j<=n;j++)
+			c[j]=(ll)c[j-1]*(len+j-1)%Mod*inv(j)%Mod;
+		for(int j=n;j>=1;j--){
+			if(a[j]<=i&&b[j]>=i+1){
+				int d=0,m=1,cx=len;
+				for(int k=j-1;k>=0;k--){
+					d=(d+(ll)cx*dp[k])%Mod; // not selected
+					if(a[k]<=i&&b[k]>=i+1)  // selected
+						cx=c[++m];
+				}
+				dp[j]=(dp[j]+d)%Mod;
+			}
+		}
+	}
 
-
+	int ans=0;
+	for(int i=1;i<=n;i++)
+		ans=(ans+dp[i])%Mod;
+	printf("%d\n",ans);
 
 
 	return 0;

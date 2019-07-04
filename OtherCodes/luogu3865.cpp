@@ -46,60 +46,40 @@ void read(IntType& val) {
 		val = -val;
 }
 
-const int MaxN=1e6+10;
-const int MaxC=1<<20;
+const int MaxN=1e5+10,MaxLogN=17+2;
 
 int n,m;
+int a[MaxN];
 
-int lg[MaxN],r[MaxC];
-
-class cmpx{
-public:
-	long double r,i;
-	cmpx(){}
-	cmpx(double alpha):r(cos(alpha)),i(sin(alpha)){}
-	cmpx(double real,double imag):r(real),i(imag){}
-
-	cmpx operator +(cmpx right)const{return cmpx(r+right.r,i+right.i);}
-	cmpx operator -(cmpx right)const{return cmpx(r-right.r,i-right.i);}
-	cmpx operator -()const{return cmpx(-r,-i);}
-	cmpx operator *(cmpx right)const{return cmpx(r*right.r-i*right.i,r*right.i+i*right.r);}
-};
-
-struct poly{
-	int fac[MaxN];
-	int n;
-};
-
-poly a,b,ans;
-
-
-void dft(poly& a){
-
-}
-
-
-void fft(poly& a,poly& b,poly& ans){
-
-}
-
+int logn;
+int st[MaxN][MaxLogN];
 
 
 
 int main(int argc, char* argv[]) {
 
-	for(int i=2;i<=n;i++){
-		lg[i]=lg[i-1];
-		if(!(i&(1<<lg[i-1])))
-			lg[i]++;
+	read(n);read(m);
+	for(int i=1;i<=n;i++)
+		read(a[i]);
+
+	for (int i = 1; i <= n; i++)
+		st[i][0]=a[i];
+
+	logn = floor(log2(n));
+	DEBUG("logn=%d\n",logn);
+	for (int j = 1; j <= logn; j++)
+		for (int i = 1; i <= n; i++) 
+			if(i+(1<<j)-1<=n)
+				st[i][j]=max(st[i][j-1],st[i+(1<<(j-1))][j-1]);
+	PRINTARR("%d",st[1],1,n);
+	PRINTARR("%d",st[2],1,n);
+
+	for(int i=1;i<=m;i++){
+		int l,r;
+		read(l);read(r);
+		int loglen=floor(log2(r-l+1));
+		printf("%d\n",max(st[l][loglen],st[r-(1<<loglen)+1][loglen]));
 	}
-
-	for(int i=1;i<MaxC;i++)
-		r[i]=(r[i>>1])|((i&1)<<lg[i]);
-
-
-
-
 
 	return 0;
 }

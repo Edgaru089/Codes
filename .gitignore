@@ -4,9 +4,10 @@
 # Edited:
 [Rr]un[Dd]ir/
 [Oo]ther[Cc]odes/*.in
-[Oo]ther[Cc]odes/*.out
+#[Oo]ther[Cc]odes/*.out
 [Oo]ther[Cc]odes/*.ans
 [Oo]ther[Cc]odes/*.exe
+*.out
 *.swp
 
 
