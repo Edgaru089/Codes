@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
-#include <cmath>
 using namespace std;
 
 #if (defined LOCAL) || (defined D)
@@ -46,59 +45,17 @@ void read(IntType& val) {
 		val = -val;
 }
 
-const int MaxN=1e6+10;
-const int MaxC=1<<20;
-
-int n,m;
-
-int lg[MaxN],r[MaxC];
-
-class cmpx{
-public:
-	long double r,i;
-	cmpx(){}
-	cmpx(double alpha):r(cos(alpha)),i(sin(alpha)){}
-	cmpx(double real,double imag):r(real),i(imag){}
-
-	cmpx operator +(cmpx right)const{return cmpx(r+right.r,i+right.i);}
-	cmpx operator -(cmpx right)const{return cmpx(r-right.r,i-right.i);}
-	cmpx operator -()const{return cmpx(-r,-i);}
-	cmpx operator *(cmpx right)const{return cmpx(r*right.r-i*right.i,r*right.i+i*right.r);}
-
-	cmpx conj()const{return cmpx(r,-i);}
-};
-
-
-
-int a[MaxN];
-
-
-void dft(){
-}
-
-
-void fft(){
-
-}
-
+const int MaxN=
 
 
 
 int main(int argc, char* argv[]) {
-
-	for(int i=2;i<=n;i++){
-		lg[i]=lg[i-1];
-		if(!(i&(1<<lg[i-1])))
-			lg[i]++;
-	}
-
-	for(int i=1;i<MaxC;i++)
-		r[i]=(r[i>>1])|((i&1)<<lg[i]);
-
-
-
-
-
+	
+	
+	
+	
+	
+	
 	return 0;
 }
 

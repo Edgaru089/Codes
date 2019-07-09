@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
-#include <cmath>
 using namespace std;
 
 #if (defined LOCAL) || (defined D)
@@ -46,59 +45,35 @@ void read(IntType& val) {
 		val = -val;
 }
 
-const int MaxN=1e6+10;
-const int MaxC=1<<20;
+const int MaxN=1e5+10;
 
-int n,m;
-
-int lg[MaxN],r[MaxC];
-
-class cmpx{
-public:
-	long double r,i;
-	cmpx(){}
-	cmpx(double alpha):r(cos(alpha)),i(sin(alpha)){}
-	cmpx(double real,double imag):r(real),i(imag){}
-
-	cmpx operator +(cmpx right)const{return cmpx(r+right.r,i+right.i);}
-	cmpx operator -(cmpx right)const{return cmpx(r-right.r,i-right.i);}
-	cmpx operator -()const{return cmpx(-r,-i);}
-	cmpx operator *(cmpx right)const{return cmpx(r*right.r-i*right.i,r*right.i+i*right.r);}
-
-	cmpx conj()const{return cmpx(r,-i);}
-};
-
-
-
+int n;
 int a[MaxN];
-
-
-void dft(){
-}
-
-
-void fft(){
-
-}
-
 
 
 
 int main(int argc, char* argv[]) {
+	
+	read(n);
+	for(int i=1;i<=n;i++)
+		read(a[i]);
 
-	for(int i=2;i<=n;i++){
-		lg[i]=lg[i-1];
-		if(!(i&(1<<lg[i-1])))
-			lg[i]++;
+	sort(a+1,a+n+1);
+
+	if(a[n]>=a[n-1]+a[n-2]){
+		printf("NO\n");
+	}else{
+		swap(a[n],a[n-1]);
+	
+		printf("YES\n");
+		for(int i=1;i<=n;i++)
+			if(i==1)
+				printf("%d",a[i]);
+			else
+				printf(" %d",a[i]);
+		printf("\n");
 	}
-
-	for(int i=1;i<MaxC;i++)
-		r[i]=(r[i>>1])|((i&1)<<lg[i]);
-
-
-
-
-
+	
 	return 0;
 }
 
