@@ -9,6 +9,9 @@
 [Oo]ther[Cc]odes/*.exe
 *.out
 *.swp
+*.exe
+*.in
+*.ans
 
 
 # User-specific files
